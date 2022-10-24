@@ -1,5 +1,5 @@
 import { SignUpInput } from './dto/signup-input';
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { UpdateAuthInput } from './dto/update-auth.input';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { JwtService } from '@nestjs/jwt';
@@ -34,14 +34,25 @@ export class AuthService {
     // return 'This action adds a new auth';
   }
   async signin(signInInput: SignInInput) {
-    try {
-      const user = await this.prisma.user.findUnique({
-        where: { email: signInInput.email }
-      })
-      return { user }
-    } catch (error) {
-      return { error: error }
+
+    // const hashedPassword = await argon.hash(signInInput.password);
+    const user = await this.prisma.user.findUnique({
+      where: { email: signInInput.email }
+    })
+    if (!user) {
+      throw new ForbiddenException("invalid credientals ")
     }
+    const passWordMatch = await argon.verify(user.hashedPassword, signInInput.password)
+    if (!passWordMatch) {
+      throw new ForbiddenException('wrong password ! ');
+    }
+    const { accessToken, refreshToken } = await this.createTokens(
+      user.id,
+      user.email
+    )
+    await this.updateRefreshToken(user.id, refreshToken)
+    return { user, refreshToken, accessToken }
+
   }
 
   findAll() {
@@ -67,7 +78,7 @@ export class AuthService {
         email,
       },
       {
-        expiresIn: '10s',
+        expiresIn: '15m',
         secret: this.configService.get('ACCESS_TOKEN_SECRET'),
       },
     );
@@ -92,4 +103,36 @@ export class AuthService {
     });
   }
 
+  async logout(userId: number) {
+    await this.prisma.user.updateMany({
+      where: {
+        id: userId,
+        hashedRefreshToken: { not: null }
+      },
+      data: { hashedRefreshToken: null }
+    })
+    return { loggedOut: true }
+  }
+  async getNewTokens(userId: number, rt: string) {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId }
+    })
+    if (!user) {
+      throw new ForbiddenException('access denied');
+    }
+    const doFreshTokenMatch = await argon.verify(
+      user.hashedRefreshToken,
+      rt
+    )
+    // console.log(doFreshTokenMatch, userId, rt)
+    if (!doFreshTokenMatch) {
+      throw new ForbiddenException('token not match')
+    }
+    const { accessToken, refreshToken } = await this.createTokens(
+      user.id,
+      user.email
+    )
+    await this.updateRefreshToken(user.id, refreshToken)
+    return { user, refreshToken, accessToken }
+  }
 }

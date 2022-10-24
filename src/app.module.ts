@@ -1,3 +1,4 @@
+import { AccessTokenGuards } from './auth/guards/accessToken.guard';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -8,6 +9,7 @@ import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config'
+import { APP_GUARD } from '@nestjs/core';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -17,6 +19,6 @@ import { ConfigModule } from '@nestjs/config'
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     }), AuthModule, UserModule,],
   controllers: [],
-  providers: [PrismaService],
+  providers: [PrismaService, { provide: APP_GUARD, useClass: AccessTokenGuards }],
 })
 export class AppModule { }
