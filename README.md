@@ -15,4 +15,5 @@ select : lấy ra các trường đổ về ứng với record được select <
 include : select đến thông tin của record có liên quan , ví dụ class với student </br>
 
 ## JS 
-An empty string (''), the number 0, null, NaN, a boolean false, and undefined variables are all “falsy”. Everything else is “truthy”.
+[An empty string (''), the number 0, null, NaN, a boolean false, and undefined variables are all “falsy”. Everything else is “truthy”.
+](https://www.nfriedly.com/techblog/2009/07/advanced-javascript-operators-and-truthy-falsy/#:~:text=An%20empty%20string%20(%20''%20),Everything%20else%20is%20%E2%80%9Ctruthy%E2%80%9D.&text=Gotchas%20to%20watch%20out%20for,false%22%20are%20both%20considered%20truthy.)
