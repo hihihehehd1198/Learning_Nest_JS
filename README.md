@@ -14,5 +14,5 @@ và disconect làm việc remove các student cũ với id được chỉ địn
 select : lấy ra các trường đổ về ứng với record được select </br>
 include : select đến thông tin của record có liên quan , ví dụ class với student </br>
 
-##JS 
+## JS 
 An empty string (''), the number 0, null, NaN, a boolean false, and undefined variables are all “falsy”. Everything else is “truthy”.
