@@ -11,6 +11,7 @@ import { UserModule } from './modules/user/user.module';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { CustomerModule } from './modules/customer/customer.module';
+import { ArticleModule } from './modules/article/article.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -22,6 +23,7 @@ import { CustomerModule } from './modules/customer/customer.module';
     AuthModule,
     UserModule,
     CustomerModule,
+    ArticleModule,
   ],
   controllers: [],
   providers: [PrismaService],

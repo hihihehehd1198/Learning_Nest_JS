@@ -2,6 +2,18 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Article {
+  body: String!
+  id: Int
+  title: String!
+}
+
+input ArticleDto {
+  body: String
+  id: Int
+  title: String
+}
+
 type Auth {
   """Example field (placeholder)"""
   exampleField: Int!
@@ -33,7 +45,9 @@ type LogOutResponse {
 }
 
 type Mutation {
+  createArticle(data: ArticleDto!): UserResponse!
   createCustomerAccount(body: CustomerDto!): UserResponse!
+  deleteArticle(id: Float!): UserResponse!
   deleteCustomerAccount(id: [Int!]!): UserResponse!
   deleteUser(id: [Int!]!): UserResponse!
   getNewTokens: NewTokensResponse!
@@ -41,6 +55,7 @@ type Mutation {
   removeAuth(id: Int!): Auth!
   signin(signInInput: SignInInput!): SignResponse!
   signup(signUpInput: SignUpInput!): SignResponse!
+  updateArticle(data: ArticleDto!): UserResponse!
   updateAuth(updateAuthInput: UpdateAuthInput!): Auth!
   updateCustomerAccount(body: CustomerDto!): UserResponse!
   updateUser(user: UserUpdateDto!): UserResponse!
@@ -53,6 +68,7 @@ type NewTokensResponse {
 
 type Query {
   auth(id: Int!): Auth!
+  getArticle(id: Int): [Article!]!
   hello: String!
   hello1: String!
   hello2: String!
