@@ -10,14 +10,26 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
-model User{
-  id Int @id @default(autoincrement())
-  username String
-  email String @unique
-  hashedPassword String
+model User {
+  id                 Int      @id @default(autoincrement())
+  username           String
+  email              String   @unique
+  hashedPassword     String
   hashedRefreshToken String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  Role               String?
+  PhoneNumber        String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @default(now())
+}
 
+model Customer {
+  id             Int      @id @default(autoincrement())
+  accountName    String
+  name           String?
+  email          String?  @unique
+  hashedPassword String?
+  address        String?
+  PhoneNumber    String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @default(now())
 }

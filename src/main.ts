@@ -1,10 +1,17 @@
 import { ValidationPipe } from '@nestjs/common';
-import { NestFactory } from '@nestjs/core';
+import { NestFactory, Reflector } from '@nestjs/core';
+import { AuthGuard } from '@nestjs/passport';
 import { AppModule } from './app.module';
+import { AccessTokenGuards } from './auth/guards/accessToken.guard';
+import { RefreshTokenGuard } from './auth/guards/refreshToken.guard';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const reflector = app.get(Reflector)
   app.useGlobalPipes(new ValidationPipe())
-  await app.listen(3333);
+  app.useGlobalGuards(
+    new AccessTokenGuards(reflector),
+  )
+  await app.listen(4000);
 }
 bootstrap();

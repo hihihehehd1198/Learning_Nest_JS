@@ -19,12 +19,14 @@ export class AuthResolver {
   constructor(private readonly authService: AuthService) { }
 
   @Mutation(() => SignResponse)
+  @Public()
   signup(@Args('signUpInput') signUpInput: SignUpInput) {
     return this.authService.signup(signUpInput);
   }
 
-  @Public()
+
   @Mutation(() => SignResponse)
+  @Public()
   signin(@Args('signInInput') signInInput: SignInInput) {
     return this.authService.signin(signInInput)
   }
@@ -59,22 +61,27 @@ export class AuthResolver {
   hello() {
     return "hello"
   }
+  @Public()
 
   @Query(() => String)
+  @UseGuards(RefreshTokenGuard)
   hello1() {
     return "hello1"
   }
 
+
+  @Public()
+  // @UseGuards(RefreshTokenGuard)
   @Query(() => String)
+  @UseGuards(RefreshTokenGuard)
   hello2() {
     return "hello2"
   }
 
-  @Public()
-  @UseGuards(RefreshTokenGuard)
+  // @UseGuards(RefreshTokenGuard)
   @Mutation(() => NewTokensResponse)
-  getNewTokens(@CurrentUserId() userId: number, @CurrentUser('refreshToken') refreshToken: string) {
-    console.log(refreshToken)
-    return this.authService.getNewTokens(userId, refreshToken)
+  getNewTokens(@CurrentUserId() userId: number) {
+    // console.log(refreshToken)
+    return this.authService.getNewTokens(userId)
   }
 }

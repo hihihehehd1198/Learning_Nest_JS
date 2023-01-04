@@ -7,9 +7,10 @@ import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
-import { UserModule } from './user/user.module';
-import { ConfigModule } from '@nestjs/config'
+import { UserModule } from './modules/user/user.module';
+import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
+import { CustomerModule } from './modules/customer/customer.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -17,8 +18,12 @@ import { APP_GUARD } from '@nestjs/core';
       driver: ApolloDriver,
       sortSchema: true,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
-    }), AuthModule, UserModule,],
+    }),
+    AuthModule,
+    UserModule,
+    CustomerModule,
+  ],
   controllers: [],
-  providers: [PrismaService, { provide: APP_GUARD, useClass: AccessTokenGuards }],
+  providers: [PrismaService],
 })
-export class AppModule { }
+export class AppModule {}

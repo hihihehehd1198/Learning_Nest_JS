@@ -7,18 +7,43 @@ type Auth {
   exampleField: Int!
 }
 
+type Customer {
+  PhoneNumber: String
+  accountName: String!
+  address: String
+  email: String
+  hashedPassword: String
+  id: Int!
+  name: String
+}
+
+input CustomerDto {
+  PhoneNumber: String
+  accountName: String!
+  address: String
+  email: String
+  hashedPassword: String
+  id: Int
+  name: String!
+}
+
 type LogOutResponse {
   loggedOut: Boolean!
   message: String!
 }
 
 type Mutation {
+  createCustomerAccount(body: CustomerDto!): UserResponse!
+  deleteCustomerAccount(id: [Int!]!): UserResponse!
+  deleteUser(id: [Int!]!): UserResponse!
   getNewTokens: NewTokensResponse!
   logOut(id: Int!): LogOutResponse!
   removeAuth(id: Int!): Auth!
   signin(signInInput: SignInInput!): SignResponse!
   signup(signUpInput: SignUpInput!): SignResponse!
   updateAuth(updateAuthInput: UpdateAuthInput!): Auth!
+  updateCustomerAccount(body: CustomerDto!): UserResponse!
+  updateUser(user: UserUpdateDto!): UserResponse!
 }
 
 type NewTokensResponse {
@@ -31,6 +56,8 @@ type Query {
   hello: String!
   hello1: String!
   hello2: String!
+  listCustomerAccount(id: Int): [Customer!]!
+  listUser(id: Int): [User!]!
 }
 
 input SignInInput {
@@ -58,7 +85,21 @@ input UpdateAuthInput {
 }
 
 type User {
-  email: String!
+  PhoneNumber: String
+  Role: String
+  email: String
   id: Int!
-  username: String!
+  username: String
+}
+
+type UserResponse {
+  response: String!
+}
+
+input UserUpdateDto {
+  PhoneNumber: String
+  Role: String
+  email: String
+  id: Int!
+  username: String
 }
