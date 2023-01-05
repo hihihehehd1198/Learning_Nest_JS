@@ -53,7 +53,7 @@ model Brand {
 
 model Banner {
   id        Int      @id @default(autoincrement())
-  urlImg    String
+  urlImg    String?
   user      User?    @relation(fields: [userId], references: [id])
   userId    Int?
   createdAt DateTime @default(now())

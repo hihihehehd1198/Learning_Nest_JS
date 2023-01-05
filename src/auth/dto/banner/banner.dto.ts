@@ -3,14 +3,14 @@ import { IsOptional } from 'class-validator';
 
 @InputType()
 export class BannerDto {
-  @Field()
+  @Field({ nullable: true })
   id?: number;
 
-  @Field()
+  @Field({ nullable: true })
   @IsOptional()
   urlImg?: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsOptional()
   userId?: number;
 }
