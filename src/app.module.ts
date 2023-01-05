@@ -1,3 +1,4 @@
+import { BannerModule } from './modules/banner/banner.module';
 import { AccessTokenGuards } from './auth/guards/accessToken.guard';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
@@ -12,6 +13,7 @@ import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { CustomerModule } from './modules/customer/customer.module';
 import { ArticleModule } from './modules/article/article.module';
+import { BrandModule } from './modules/brands/brand.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -24,6 +26,8 @@ import { ArticleModule } from './modules/article/article.module';
     UserModule,
     CustomerModule,
     ArticleModule,
+    BannerModule,
+    BrandModule,
   ],
   controllers: [],
   providers: [PrismaService],

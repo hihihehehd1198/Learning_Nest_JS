@@ -19,6 +19,18 @@ type Auth {
   exampleField: Int!
 }
 
+type Brand {
+  brandName: String!
+  id: Float!
+  status: String!
+}
+
+input BrandDto {
+  brandName: String!
+  id: Float
+  status: String!
+}
+
 type Customer {
   PhoneNumber: String
   accountName: String!
@@ -46,8 +58,10 @@ type LogOutResponse {
 
 type Mutation {
   createArticle(data: ArticleDto!): UserResponse!
+  createBrand(body: BrandDto!): UserResponse!
   createCustomerAccount(body: CustomerDto!): UserResponse!
   deleteArticle(id: Float!): UserResponse!
+  deleteBrand(id: [Int!]!): UserResponse!
   deleteCustomerAccount(id: [Int!]!): UserResponse!
   deleteUser(id: [Int!]!): UserResponse!
   getNewTokens: NewTokensResponse!
@@ -57,6 +71,7 @@ type Mutation {
   signup(signUpInput: SignUpInput!): SignResponse!
   updateArticle(data: ArticleDto!): UserResponse!
   updateAuth(updateAuthInput: UpdateAuthInput!): Auth!
+  updateBrand(body: BrandDto!): UserResponse!
   updateCustomerAccount(body: CustomerDto!): UserResponse!
   updateUser(user: UserUpdateDto!): UserResponse!
 }
@@ -68,6 +83,7 @@ type NewTokensResponse {
 
 type Query {
   auth(id: Int!): Auth!
+  getAllBrand(id: Float): [Brand!]!
   getArticle(id: Int): [Article!]!
   hello: String!
   hello1: String!

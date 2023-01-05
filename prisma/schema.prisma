@@ -20,6 +20,7 @@ model User {
   PhoneNumber        String?
   createdAt          DateTime @default(now())
   updatedAt          DateTime @default(now())
+  Banner             Banner[]
 }
 
 model Customer {
@@ -38,6 +39,23 @@ model Article {
   id        Int      @id @default(autoincrement())
   title     String?
   body      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
+model Brand {
+  id        Int      @id @default(autoincrement())
+  brandName String
+  status    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
+model Banner {
+  id        Int      @id @default(autoincrement())
+  urlImg    String
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    Int?
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 }
