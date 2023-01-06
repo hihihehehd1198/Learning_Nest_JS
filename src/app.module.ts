@@ -14,6 +14,8 @@ import { APP_GUARD } from '@nestjs/core';
 import { CustomerModule } from './modules/customer/customer.module';
 import { ArticleModule } from './modules/article/article.module';
 import { BrandModule } from './modules/brands/brand.module';
+import { ServiceShopModule } from './modules/serviceShop/serviceShop.module';
+import { CategoryModule } from './modules/category/category.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -27,6 +29,8 @@ import { BrandModule } from './modules/brands/brand.module';
     CustomerModule,
     ArticleModule,
     BannerModule,
+    ServiceShopModule,
+    CategoryModule,
     BrandModule,
   ],
   controllers: [],

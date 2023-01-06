@@ -43,6 +43,18 @@ input BrandDto {
   status: String!
 }
 
+type Category {
+  id: Float!
+  name: String!
+  status: Boolean!
+}
+
+input CategoryDTO {
+  id: Float
+  name: String
+  status: Boolean!
+}
+
 type Customer {
   PhoneNumber: String
   accountName: String!
@@ -72,11 +84,15 @@ type Mutation {
   createArticle(data: ArticleDto!): UserResponse!
   createBanner(body: BannerDto!): UserResponse!
   createBrand(body: BrandDto!): UserResponse!
+  createCategory(body: CategoryDTO!): UserResponse!
   createCustomerAccount(body: CustomerDto!): UserResponse!
+  createServiceShop(body: ServiceShopDTO!): UserResponse!
   deleteArticle(id: Float!): UserResponse!
   deleteBanner(id: [Int!]!): UserResponse!
   deleteBrand(id: [Int!]!): UserResponse!
+  deleteCategory(id: [Int!]!): UserResponse!
   deleteCustomerAccount(id: [Int!]!): UserResponse!
+  deleteServiceShop(id: [Int!]!): UserResponse!
   deleteUser(id: [Int!]!): UserResponse!
   getNewTokens: NewTokensResponse!
   logOut(id: Int!): LogOutResponse!
@@ -87,7 +103,9 @@ type Mutation {
   updateAuth(updateAuthInput: UpdateAuthInput!): Auth!
   updateBanner(body: BannerDto!): UserResponse!
   updateBrand(body: BrandDto!): UserResponse!
+  updateCategory(body: CategoryDTO!): UserResponse!
   updateCustomerAccount(body: CustomerDto!): UserResponse!
+  updateServiceShop(body: ServiceShopDTO!): UserResponse!
   updateUser(user: UserUpdateDto!): UserResponse!
 }
 
@@ -101,11 +119,25 @@ type Query {
   getAllBanner(id: Float): [Banner!]!
   getAllBrand(id: Float): [Brand!]!
   getArticle(id: Int): [Article!]!
+  getCategory(id: Float): [Category!]!
+  getServiceShop(id: Float): [ServiceShop!]!
   hello: String!
   hello1: String!
   hello2: String!
   listCustomerAccount(id: Int): [Customer!]!
   listUser(id: Int): [User!]!
+}
+
+type ServiceShop {
+  id: Int
+  name: String!
+  price: Float
+}
+
+input ServiceShopDTO {
+  id: Int
+  name: String!
+  price: Float
 }
 
 input SignInInput {
