@@ -9,7 +9,7 @@ import {
 import { CustomerDto } from '../../auth/dto/customer/customer.dto';
 import { UserResponse } from '../../auth/dto/user/user-response';
 import { Customer } from './customer.entity';
-import { CustomerService } from './Customer.service';
+import { CustomerService } from '../customer/customer.service';
 
 @Resolver(() => Customer)
 export class CustomerResolver {

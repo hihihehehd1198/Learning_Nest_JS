@@ -21,11 +21,12 @@ export class AccessTokenGuards extends AuthGuard('jwt') {
             context.getHandler(),
             context.getClass()
         ])
+        console.log(context , isPublic)
+
         // console.log(isPublic)
         if (isPublic) {
             return true
         }
-        // console.log(context)
         // const {user } = context.switchToHttp().getRequest()
         return super.canActivate(context)
     }

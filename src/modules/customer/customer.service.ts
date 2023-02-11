@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { Injectable } from '@nestjs/common/decorators';
 import { CustomerDto } from '../../auth/dto/customer/customer.dto';
 import { PrismaService } from '../../prisma/prisma.service';
-import { Customer } from './customer.entity';
+import { Customer } from '../customer/customer.entity';
 import * as argon from 'argon2';
 @Injectable()
 export class CustomerService {

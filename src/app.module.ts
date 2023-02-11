@@ -16,6 +16,7 @@ import { ArticleModule } from './modules/article/article.module';
 import { BrandModule } from './modules/brands/brand.module';
 import { ServiceShopModule } from './modules/serviceShop/serviceShop.module';
 import { CategoryModule } from './modules/category/category.module';
+import { RefreshTokenGuard } from './auth/guards/refreshToken.guard';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -23,6 +24,12 @@ import { CategoryModule } from './modules/category/category.module';
       driver: ApolloDriver,
       sortSchema: true,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      // context:({request})=>{
+      //   // console.log('request',request)
+      //   return({
+      //     req:request
+      //   })
+      // },
     }),
     AuthModule,
     UserModule,
@@ -34,6 +41,6 @@ import { CategoryModule } from './modules/category/category.module';
     BrandModule,
   ],
   controllers: [],
-  providers: [PrismaService],
+  providers: [PrismaService]
 })
 export class AppModule {}

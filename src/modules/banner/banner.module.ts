@@ -1,4 +1,4 @@
-import { BannerResolver } from './Banner.resolver';
+import { BannerResolver } from '../banner/banner.resolver';
 import { Module } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import { BannerService } from './banner.service';

@@ -13,6 +13,7 @@ import { CurrentUserId } from './decorators/currentUserId.decorator';
 import { CurrentUser } from './decorators/currentUser.decorator';
 import { RefreshTokenGuard } from './guards/refreshToken.guard';
 import { UseGuards } from '@nestjs/common';
+import { AccessTokenGuards } from './guards/accessToken.guard';
 
 @Resolver(() => Auth)
 export class AuthResolver {
@@ -61,19 +62,17 @@ export class AuthResolver {
   hello() {
     return "hello"
   }
-  @Public()
+
 
   @Query(() => String)
-  @UseGuards(RefreshTokenGuard)
+  // @UseGuards(AccessTokenGuards)
   hello1() {
     return "hello1"
   }
 
-
-  @Public()
   // @UseGuards(RefreshTokenGuard)
   @Query(() => String)
-  @UseGuards(RefreshTokenGuard)
+  // @UseGuards(AccessTokenGuards)
   hello2() {
     return "hello2"
   }
