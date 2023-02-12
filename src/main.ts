@@ -10,8 +10,7 @@ async function bootstrap() {
   const reflector = app.get(Reflector)
   app.useGlobalPipes(new ValidationPipe())
   app.useGlobalGuards(
-    // new AccessTokenGuards(reflector),
-    new RefreshTokenGuard()
+    new AccessTokenGuards(reflector),
   )
   app.enableCors()
   await app.listen(4000);
