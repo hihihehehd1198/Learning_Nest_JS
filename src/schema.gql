@@ -80,6 +80,10 @@ type LogOutResponse {
   message: String!
 }
 
+type MessageEntity {
+  response: String!
+}
+
 type Mutation {
   createArticle(data: ArticleDto!): UserResponse!
   createBanner(body: BannerDto!): UserResponse!
@@ -97,6 +101,7 @@ type Mutation {
   getNewTokens: NewTokensResponse!
   logOut(id: Int!): LogOutResponse!
   removeAuth(id: Int!): Auth!
+  sendMessage: MessageEntity!
   signin(signInInput: SignInInput!): SignResponse!
   signup(signUpInput: SignUpInput!): SignResponse!
   updateArticle(data: ArticleDto!): UserResponse!

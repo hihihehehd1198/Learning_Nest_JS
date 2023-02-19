@@ -53,6 +53,7 @@ export class AuthService {
       user.email,
     );
     await this.updateRefreshToken(user.id, refreshToken);
+    // return timeout
     return { user, refreshToken, accessToken };
   }
 
@@ -79,7 +80,7 @@ export class AuthService {
         email,
       },
       {
-        expiresIn: '30s',
+        expiresIn: '1d',
         secret: this.configService.get('ACCESS_TOKEN_SECRET'),
       },
     );

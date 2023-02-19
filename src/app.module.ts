@@ -17,6 +17,7 @@ import { BrandModule } from './modules/brands/brand.module';
 import { ServiceShopModule } from './modules/serviceShop/serviceShop.module';
 import { CategoryModule } from './modules/category/category.module';
 import { RefreshTokenGuard } from './auth/guards/refreshToken.guard';
+import { MessageModule } from './modules/messages/messages.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -39,8 +40,10 @@ import { RefreshTokenGuard } from './auth/guards/refreshToken.guard';
     ServiceShopModule,
     CategoryModule,
     BrandModule,
+    MessageModule,
+    // WebsocketsModule,
   ],
   controllers: [],
-  providers: [PrismaService]
+  providers: [PrismaService],
 })
 export class AppModule {}

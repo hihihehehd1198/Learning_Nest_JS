@@ -17,7 +17,7 @@ import { AccessTokenGuards } from './guards/accessToken.guard';
 
 @Resolver(() => Auth)
 export class AuthResolver {
-  constructor(private readonly authService: AuthService) { }
+  constructor(private readonly authService: AuthService) {}
 
   @Mutation(() => SignResponse)
   @Public()
@@ -25,11 +25,12 @@ export class AuthResolver {
     return this.authService.signup(signUpInput);
   }
 
-
   @Mutation(() => SignResponse)
   @Public()
-  signin(@Args('signInInput') signInInput: SignInInput) {
-    return this.authService.signin(signInInput)
+  async signin(@Args('signInInput') signInInput: SignInInput) {
+    return await this.authService.signin(signInInput);
+    // return this.authService.signin(signInInput);
+    // return res;
   }
 
   @Query(() => [Auth], { name: 'auth' })
@@ -54,33 +55,32 @@ export class AuthResolver {
 
   @Mutation(() => LogOutResponse)
   logOut(@Args('id', { type: () => Int }) id: number) {
-    return this.authService.logout(id)
+    return this.authService.logout(id);
   }
 
   @Public()
   @Query(() => String)
   hello() {
-    return "hello"
+    return 'hello';
   }
-
 
   @Query(() => String)
   // @UseGuards(AccessTokenGuards)
   hello1() {
-    return "hello1"
+    return 'hello1';
   }
 
   // @UseGuards(RefreshTokenGuard)
   @Query(() => String)
   // @UseGuards(AccessTokenGuards)
   hello2() {
-    return "hello2"
+    return 'hello2';
   }
 
   // @UseGuards(RefreshTokenGuard)
   @Mutation(() => NewTokensResponse)
   getNewTokens(@CurrentUserId() userId: number) {
     // console.log(refreshToken)
-    return this.authService.getNewTokens(userId)
+    return this.authService.getNewTokens(userId);
   }
 }
