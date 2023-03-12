@@ -91,7 +91,7 @@ type Mutation {
   createCategory(body: CategoryDTO!): UserResponse!
   createCustomerAccount(body: CustomerDto!): UserResponse!
   createServiceShop(body: ServiceShopDTO!): UserResponse!
-  deleteArticle(id: Float!): UserResponse!
+  deleteArticle(id: [Int!]!): UserResponse!
   deleteBanner(id: [Int!]!): UserResponse!
   deleteBrand(id: [Int!]!): UserResponse!
   deleteCategory(id: [Int!]!): UserResponse!

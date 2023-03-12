@@ -5,7 +5,7 @@ import { ArticleDto } from '../../auth/dto/article/article.dto';
 
 @Injectable()
 export class ArticleService {
-  constructor(private prismaService: PrismaService) {}
+  constructor(private prismaService: PrismaService) { }
   async getArticle(id?: number) {
     try {
       if (!id) {
@@ -50,11 +50,15 @@ export class ArticleService {
       throw new Error(error);
     }
   }
-  async deleteArticle(id: number) {
+  async deleteArticle(listId: number[]) {
     try {
-      await this.prismaService.article.delete({
+
+      //asdasd
+      await this.prismaService.article.deleteMany({
         where: {
-          id,
+          id: {
+            in: [...listId]
+          }
         },
       });
       return {

@@ -7,7 +7,7 @@ import { type } from 'os';
 
 @Resolver(() => Article)
 export class ArticleResolver {
-  constructor(private articleService: ArticleService) {}
+  constructor(private articleService: ArticleService) { }
   @Query(() => [Article])
   async getArticle(
     @Args('id', { type: () => Int, nullable: true }) id: number,
@@ -26,7 +26,7 @@ export class ArticleResolver {
   }
 
   @Mutation(() => UserResponse)
-  async deleteArticle(@Args('id') id: number) {
+  async deleteArticle(@Args('id', { type: () => [Int], nullable: false }) id: number[]) {
     return await this.articleService.deleteArticle(id);
   }
 }

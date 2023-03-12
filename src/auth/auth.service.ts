@@ -6,6 +6,7 @@ import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import * as argon from 'argon2';
 import { SignInInput } from './dto/signin-input';
+import { AppService } from 'src/app.service';
 // import { SignUpInput } from './dto/update-auth.input';
 
 @Injectable()
@@ -13,8 +14,9 @@ export class AuthService {
   constructor(
     private prisma: PrismaService,
     private jwtService: JwtService,
+    // private forkService : AppService,
     private configService: ConfigService,
-  ) {}
+  ) { }
   async signup(signUpInput: SignUpInput) {
     const hashedPassword = await argon.hash(signUpInput.password);
     const user = await this.prisma.user.create({

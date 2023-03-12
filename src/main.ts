@@ -8,6 +8,7 @@ import * as firebase from 'firebase-admin';
 import * as http from 'http';
 import * as io from 'socket.io';
 import { IoAdapter } from '@nestjs/platform-socket.io';
+import * as  fs from 'fs'
 const firebaseConfig = {
   apiKey: 'AIzaSyDkZSndxYuL_T_BuI3mJjXYc_woBcL2uDM',
   authDomain: 'thoikhoabieu-a5075.firebaseapp.com',
@@ -21,7 +22,12 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    httpsOptions: {
+      key: fs.readFileSync('src/assets/cert/RootCA.key'),
+      cert: fs.readFileSync("src/assets/cert/RootCA.pem"),
+    }
+  });
   const reflector = app.get(Reflector);
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalGuards(new AccessTokenGuards(reflector));
@@ -31,6 +37,7 @@ async function bootstrap() {
   // app.useWebSocketAdapter(new IoAdapter(ioServer));
   app.enableCors();
 
-  await app.listen(4000);
+  await app.listen(4000, "192.168.43.133");
+  // app.listen(4000)
 }
 bootstrap();
