@@ -14,4 +14,6 @@ export class User {
 
   @Field(() => String!, { nullable: true })
   PhoneNumber?: string;
+  @Field(() => String!, { nullable: true })
+  hashedPassword?: string;
 }

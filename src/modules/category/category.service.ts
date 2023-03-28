@@ -6,16 +6,14 @@ import { BrandDto } from '../../auth/dto/brands/brand.dto';
 
 @Injectable()
 export class CategoryService {
-  constructor(private prismaService: PrismaService) {}
+  constructor(private prismaService: PrismaService) { }
 
   async createCategory(data: Omit<CategoryDTO, 'id'>) {
     try {
-      await this.prismaService.category.create({
+      const res: Category = await this.prismaService.category.create({
         data,
       });
-      return {
-        response: 'success',
-      };
+      return res
     } catch (error) {
       throw new Error(error);
     }
@@ -23,7 +21,7 @@ export class CategoryService {
   async updateCategory(data: CategoryDTO) {
     try {
       const { id, ...body } = data;
-      await this.prismaService.category.update({
+      const res: Category = await this.prismaService.category.update({
         where: {
           id,
         },
@@ -31,9 +29,7 @@ export class CategoryService {
           ...body,
         },
       });
-      return {
-        response: 'success',
-      };
+      return res
     } catch (error) {
       throw new Error(error);
     }
@@ -42,10 +38,10 @@ export class CategoryService {
     try {
       return id
         ? await this.prismaService.category.findMany({
-            where: {
-              id,
-            },
-          })
+          where: {
+            id,
+          },
+        })
         : await this.prismaService.category.findMany();
     } catch (error) {
       throw new Error(error);
@@ -60,9 +56,7 @@ export class CategoryService {
           },
         },
       });
-      return {
-        response: 'success',
-      };
+      return 'ok'
     } catch (error) {
       throw new Error(error);
     }

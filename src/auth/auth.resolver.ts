@@ -17,7 +17,7 @@ import { AccessTokenGuards } from './guards/accessToken.guard';
 
 @Resolver(() => Auth)
 export class AuthResolver {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService) { }
 
   @Mutation(() => SignResponse)
   @Public()

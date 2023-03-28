@@ -39,7 +39,7 @@ type Brand {
 
 input BrandDto {
   brandName: String!
-  id: Float
+  id: Int
   status: String!
 }
 
@@ -85,33 +85,33 @@ type MessageEntity {
 }
 
 type Mutation {
-  createArticle(data: ArticleDto!): UserResponse!
-  createBanner(body: BannerDto!): UserResponse!
-  createBrand(body: BrandDto!): UserResponse!
-  createCategory(body: CategoryDTO!): UserResponse!
-  createCustomerAccount(body: CustomerDto!): UserResponse!
-  createServiceShop(body: ServiceShopDTO!): UserResponse!
-  deleteArticle(id: [Int!]!): UserResponse!
-  deleteBanner(id: [Int!]!): UserResponse!
-  deleteBrand(id: [Int!]!): UserResponse!
-  deleteCategory(id: [Int!]!): UserResponse!
-  deleteCustomerAccount(id: [Int!]!): UserResponse!
-  deleteServiceShop(id: [Int!]!): UserResponse!
-  deleteUser(id: [Int!]!): UserResponse!
+  createArticle(data: ArticleDto!): Article!
+  createBanner(body: BannerDto!): Banner!
+  createBrand(body: BrandDto!): Brand!
+  createCategory(body: CategoryDTO!): Category!
+  createCustomerAccount(body: CustomerDto!): Customer!
+  createServiceShop(body: ServiceShopDTO!): ServiceShop!
+  deleteArticle(id: [Int!]!): String!
+  deleteBanner(id: [Int!]!): Banner!
+  deleteBrand(id: [Int!]!): String!
+  deleteCategory(id: [Int!]!): String!
+  deleteCustomerAccount(id: [Int!]!): String!
+  deleteServiceShop(id: [Int!]!): String!
+  deleteUser(id: [Int!]!): String!
   getNewTokens: NewTokensResponse!
   logOut(id: Int!): LogOutResponse!
   removeAuth(id: Int!): Auth!
   sendMessage: MessageEntity!
   signin(signInInput: SignInInput!): SignResponse!
   signup(signUpInput: SignUpInput!): SignResponse!
-  updateArticle(data: ArticleDto!): UserResponse!
+  updateArticle(data: ArticleDto!): Article!
   updateAuth(updateAuthInput: UpdateAuthInput!): Auth!
-  updateBanner(body: BannerDto!): UserResponse!
-  updateBrand(body: BrandDto!): UserResponse!
-  updateCategory(body: CategoryDTO!): UserResponse!
-  updateCustomerAccount(body: CustomerDto!): UserResponse!
-  updateServiceShop(body: ServiceShopDTO!): UserResponse!
-  updateUser(user: UserUpdateDto!): UserResponse!
+  updateBanner(body: BannerDto!): Banner!
+  updateBrand(body: BrandDto!): Brand!
+  updateCategory(body: CategoryDTO!): Category!
+  updateCustomerAccount(body: CustomerDto!): Customer!
+  updateServiceShop(body: ServiceShopDTO!): ServiceShop!
+  updateUser(user: UserUpdateDto!): User!
 }
 
 type NewTokensResponse {
@@ -157,12 +157,16 @@ type SignResponse {
 }
 
 input SignUpInput {
+  PhoneNumber: String
+  Role: String
   email: String!
   password: String!
   username: String!
 }
 
 input UpdateAuthInput {
+  PhoneNumber: String
+  Role: String
   email: String
   id: Int!
   password: String
@@ -173,12 +177,9 @@ type User {
   PhoneNumber: String
   Role: String
   email: String
+  hashedPassword: String
   id: Int!
   username: String
-}
-
-type UserResponse {
-  response: String!
 }
 
 input UserUpdateDto {
@@ -186,5 +187,6 @@ input UserUpdateDto {
   Role: String
   email: String
   id: Int!
+  password: String
   username: String
 }

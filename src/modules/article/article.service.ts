@@ -22,7 +22,7 @@ export class ArticleService {
   }
   async updateArticle(data: ArticleDto) {
     try {
-      await this.prismaService.article.update({
+      const res: Article = await this.prismaService.article.update({
         where: {
           id: data.id,
         },
@@ -31,21 +31,17 @@ export class ArticleService {
           title: data.title,
         },
       });
-      return {
-        response: 'success',
-      };
+      return res
     } catch (error) {
       throw new Error(error);
     }
   }
   async createArticle(data: ArticleDto) {
     try {
-      await this.prismaService.article.create({
+      const res: Article = await this.prismaService.article.create({
         data,
       });
-      return {
-        response: 'success',
-      };
+      return res
     } catch (error) {
       throw new Error(error);
     }
@@ -61,9 +57,7 @@ export class ArticleService {
           }
         },
       });
-      return {
-        response: 'success',
-      };
+      return 'ok?'
     } catch (error) {
       throw new Error(error);
     }

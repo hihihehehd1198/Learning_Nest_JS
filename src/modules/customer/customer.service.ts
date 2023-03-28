@@ -11,26 +11,26 @@ export class CustomerService {
     // private jwtService: JwtService,
     private configService: ConfigService,
     private prismaService: PrismaService,
-  ) {}
+  ) { }
 
   async createCustomerAccount(data: CustomerDto) {
     const { hashedPassword, ...body } = data;
     const Password = await argon.hash(hashedPassword);
     try {
-      await this.prismaService.customer.create({
+      const res:Customer = await this.prismaService.customer.create({
         data: {
           hashedPassword: Password,
           ...body,
         },
       });
-      return { response: 'success' };
+      return res;
     } catch (error) {
       throw new Error(error);
     }
   }
   async updateCustomerAccount(data: CustomerDto) {
     try {
-      await this.prismaService.customer.update({
+      const res: Customer = await this.prismaService.customer.update({
         where: {
           id: data.id,
         },
@@ -38,7 +38,7 @@ export class CustomerService {
           ...data,
         },
       });
-      return { response: 'success' };
+      return res;
     } catch (error) {
       throw new Error(error);
     }
@@ -52,7 +52,7 @@ export class CustomerService {
           },
         },
       });
-      return { response: 'success' };
+      return 'ok?'
     } catch (error) {
       throw new Error(error);
     }

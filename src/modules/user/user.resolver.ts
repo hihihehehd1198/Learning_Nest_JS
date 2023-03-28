@@ -10,11 +10,11 @@ import {
 import { PrismaService } from '../../prisma/prisma.service';
 import { User } from './user.entity';
 import { Optional } from '@nestjs/common';
-import { UserResponse, UserUpdateDto } from '../../auth/dto/user/user-response';
+import { UserUpdateDto } from '../../auth/dto/user/user-response';
 
 @Resolver(() => User)
 export class UserResolver {
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) { }
 
   @Query(() => [User], { name: 'listUser' })
   findAll(
@@ -25,12 +25,12 @@ export class UserResolver {
     return id ? this.userService.getAll(id) : this.userService.getAll();
   }
 
-  @Mutation(() => UserResponse)
+  @Mutation(() => User)
   async updateUser(@Args('user') user: UserUpdateDto) {
     return this.userService.updateUser(user);
   }
 
-  @Mutation(() => UserResponse)
+  @Mutation(() => String)
   async deleteUser(@Args('id', { type: () => [Int] }) id?: Array<number>) {
     return this.userService.deleteUser(id);
   }

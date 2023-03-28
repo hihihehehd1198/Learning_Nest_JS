@@ -1,4 +1,4 @@
-import { UserResponse } from './../../auth/dto/user/user-response';
+
 import {
   Resolver,
   Query,
@@ -13,25 +13,25 @@ import { BannerDto } from '../../auth/dto/banner/banner.dto';
 
 @Resolver()
 export class BannerResolver {
-  constructor(private bannerService: BannerService) {}
+  constructor(private bannerService: BannerService) { }
   @Query(() => [Banner])
   async getAllBanner(@Args('id', { nullable: true }) id?: number) {
     return this.bannerService.getBanner(id);
   }
 
-  @Mutation(() => UserResponse)
+  @Mutation(() => Banner)
   async updateBanner(@Args('body') data: BannerDto) {
     return this.bannerService.updateBanner(data);
   }
 
-  @Mutation(() => UserResponse)
+  @Mutation(() => Banner)
   async createBanner(
     @Args('body', { type: () => BannerDto })
     data: BannerDto,
   ) {
     return this.bannerService.createBanner(data);
   }
-  @Mutation(() => UserResponse)
+  @Mutation(() => Banner)
   async deleteBanner(@Args('id', { type: () => [Int] }) id: number[]) {
     return this.bannerService.deleteBanner(id);
   }

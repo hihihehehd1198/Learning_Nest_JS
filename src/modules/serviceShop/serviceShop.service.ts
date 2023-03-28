@@ -1,18 +1,17 @@
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 import { ServiceShopDTO } from '../../auth/dto/serviceShop/serviceShop.dto';
+import { ServiceShop } from './serviceShop.entity';
 
 @Injectable()
 export class ServiceShopService {
-  constructor(private prismaService: PrismaService) {}
+  constructor(private prismaService: PrismaService) { }
   async createServiceShop(data: ServiceShopDTO) {
     try {
-      await this.prismaService.serviceShop.create({
+      const res: ServiceShop = await this.prismaService.serviceShop.create({
         data,
       });
-      return {
-        response: 'success',
-      };
+      return res
     } catch (error) {
       throw new Error(error);
     }
@@ -29,7 +28,7 @@ export class ServiceShopService {
   async updateServiceShop(data: ServiceShopDTO) {
     const { id, ...body } = data;
     try {
-      await this.prismaService.serviceShop.update({
+      const res: ServiceShop = await this.prismaService.serviceShop.update({
         where: {
           id,
         },
@@ -37,9 +36,7 @@ export class ServiceShopService {
           ...body,
         },
       });
-      return {
-        response: 'success',
-      };
+      return res
     } catch (error) {
       throw new Error(error);
     }
@@ -53,9 +50,7 @@ export class ServiceShopService {
           },
         },
       });
-      return {
-        response: 'success',
-      };
+      return 'ok?'
     } catch (error) {
       throw new Error(error);
     }

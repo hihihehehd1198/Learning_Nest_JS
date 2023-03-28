@@ -1,3 +1,4 @@
+import { Type } from '@nestjs/common';
 import {
   extend,
   Field,
@@ -11,11 +12,11 @@ import { IsOptional } from 'class-validator';
 import { User } from '../../../modules/user/user.entity';
 // import { User } from '../../../modules/user/user.entity'
 
-@ObjectType()
-export class UserResponse {
-  @Field()
-  response: string;
-}
+
+
+
+
+
 
 @InputType()
 export class UserUpdateDto {
@@ -31,4 +32,7 @@ export class UserUpdateDto {
 
   @Field(() => String!, { nullable: true })
   PhoneNumber?: string;
+
+  @Field(() => String!, { nullable: true })
+  password?: string;
 }
