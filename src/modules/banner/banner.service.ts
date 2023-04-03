@@ -2,6 +2,7 @@ import { PrismaService } from './../../prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 import { BannerDto } from '../../auth/dto/banner/banner.dto';
 import { Banner } from './banner.entity';
+import { ERROR_RESPONSE } from 'src/shared/utils';
 
 @Injectable()
 export class BannerService {
@@ -9,13 +10,11 @@ export class BannerService {
 
   async getBanner(id?: number) {
     try {
-      return !id
-        ? await this.prismaService.banner.findMany({})
-        : await this.prismaService.banner.findMany({
-          where: { id },
-        });
+      return await this.prismaService.banner.findMany({
+        where: { id },
+      });
     } catch (error) {
-      throw new Error(error);
+      ERROR_RESPONSE(error);
     }
   }
   async createBanner(data: Omit<BannerDto, 'id'>) {
@@ -27,28 +26,52 @@ export class BannerService {
       });
       return res
     } catch (error) {
-      throw new Error(error);
+      ERROR_RESPONSE(error);
     }
   }
   async updateBanner(data: BannerDto) {
-    const { id, ...body } = data;
+    const { id, userId, ...body } = data;
     try {
-      const res: Banner = await this.prismaService.banner.update({
+      console.log("userId", userId)
+      const findUser = await this.prismaService.banner.findFirst({
+        where: {
+          id
+        }
+      })
+      if (!findUser) {
+        throw new Error("khong tim thay ban ghi")
+      }
+      const res = await this.prismaService.banner.update({
         where: {
           id,
         },
         data: {
           ...body,
+          user: {
+            connect: {
+              id: userId
+            }
+          }
         },
       });
-
+      console.log(res)
       return res
     } catch (error) {
-      throw new Error(error);
+      ERROR_RESPONSE(error)
     }
   }
   async deleteBanner(id: Array<number>) {
     try {
+      const resFind = await this.prismaService.banner.findMany({
+        where: {
+          id: {
+            in: [...id]
+          }
+        }
+      })
+      if (!resFind) {
+        throw new Error("khong tim thay ban ghi")
+      }
       await this.prismaService.banner.deleteMany({
         where: {
           id: {
@@ -58,7 +81,7 @@ export class BannerService {
       });
       return 'ok?'
     } catch (error) {
-      throw new Error(error);
+      ERROR_RESPONSE(error);
     }
   }
 }

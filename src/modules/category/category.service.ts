@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common/decorators/core/injectable.decorator'
 import { CategoryDTO } from '../../auth/dto/category/category.dto';
 import { Category } from './category.entity';
 import { BrandDto } from '../../auth/dto/brands/brand.dto';
+import { ERROR_RESPONSE } from 'src/shared/utils';
 
 @Injectable()
 export class CategoryService {
@@ -15,7 +16,7 @@ export class CategoryService {
       });
       return res
     } catch (error) {
-      throw new Error(error);
+      ERROR_RESPONSE(error);
     }
   }
   async updateCategory(data: CategoryDTO) {
@@ -31,7 +32,7 @@ export class CategoryService {
       });
       return res
     } catch (error) {
-      throw new Error(error);
+      ERROR_RESPONSE(error);
     }
   }
   async getCategory(id: number) {
@@ -44,7 +45,7 @@ export class CategoryService {
         })
         : await this.prismaService.category.findMany();
     } catch (error) {
-      throw new Error(error);
+      ERROR_RESPONSE(error);
     }
   }
   async deleteCategory(id: number[]) {
@@ -58,7 +59,7 @@ export class CategoryService {
       });
       return 'ok'
     } catch (error) {
-      throw new Error(error);
+      ERROR_RESPONSE(error);
     }
   }
 }

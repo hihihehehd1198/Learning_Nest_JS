@@ -21,14 +21,18 @@ type Auth {
 
 type Banner {
   id: Float!
+  location: String
+  status: Boolean
   urlImg: String!
   userId: Float!
 }
 
 input BannerDto {
   id: Float
+  location: String
+  status: Boolean!
   urlImg: String
-  userId: Float
+  userId: Int
 }
 
 type Brand {
@@ -90,12 +94,14 @@ type Mutation {
   createBrand(body: BrandDto!): Brand!
   createCategory(body: CategoryDTO!): Category!
   createCustomerAccount(body: CustomerDto!): Customer!
+  createProduct(data: ProductBodyDTO!): Product!
   createServiceShop(body: ServiceShopDTO!): ServiceShop!
   deleteArticle(id: [Int!]!): String!
   deleteBanner(id: [Int!]!): Banner!
   deleteBrand(id: [Int!]!): String!
   deleteCategory(id: [Int!]!): String!
   deleteCustomerAccount(id: [Int!]!): String!
+  deleteProduct(id: [Int!]!): String!
   deleteServiceShop(id: [Int!]!): String!
   deleteUser(id: [Int!]!): String!
   getNewTokens: NewTokensResponse!
@@ -110,6 +116,7 @@ type Mutation {
   updateBrand(body: BrandDto!): Brand!
   updateCategory(body: CategoryDTO!): Category!
   updateCustomerAccount(body: CustomerDto!): Customer!
+  updateProduct(data: ProductBodyDTO!): Product!
   updateServiceShop(body: ServiceShopDTO!): ServiceShop!
   updateUser(user: UserUpdateDto!): User!
 }
@@ -119,8 +126,29 @@ type NewTokensResponse {
   refreshToken: String!
 }
 
+type Product {
+  Brand: Brand
+  Category: [Category!]
+  count: Float!
+  id: Int
+  location: String
+  name: String!
+  price: Float
+}
+
+input ProductBodyDTO {
+  brandId: Int
+  categoryId: [Int!]
+  count: Int!
+  id: Int
+  location: String!
+  name: String!
+  price: Float!
+}
+
 type Query {
   auth(id: Int!): Auth!
+  findProduct(id: Int): [Product!]!
   getAllBanner(id: Float): [Banner!]!
   getAllBrand(id: Float): [Brand!]!
   getArticle(id: Int): [Article!]!

@@ -15,5 +15,5 @@ export class Brand {
 
   @Field()
   @IsBoolean()
-  status: String;
+  status?: String;
 }

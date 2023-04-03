@@ -1,4 +1,4 @@
-import { Field, InputType, ObjectType } from '@nestjs/graphql';
+import { Field, InputType, Int, ObjectType } from '@nestjs/graphql';
 import { IsOptional } from 'class-validator';
 
 @InputType()
@@ -10,7 +10,15 @@ export class BannerDto {
   @IsOptional()
   urlImg?: string;
 
-  @Field({ nullable: true })
+  @Field(() => Int, { nullable: true })
   @IsOptional()
   userId?: number;
+
+
+  @Field({ nullable: true })
+  @IsOptional()
+  location?: string
+
+  @Field()
+  status: boolean
 }

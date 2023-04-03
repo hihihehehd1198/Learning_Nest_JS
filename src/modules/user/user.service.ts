@@ -3,6 +3,7 @@ import { UserUpdateDto } from '../../auth/dto/user/user-response';
 import { PrismaService } from '../../prisma/prisma.service';
 import { User } from './user.entity';
 import { hash } from 'argon2'
+import { ERROR_RESPONSE } from 'src/shared/utils';
 @Injectable()
 export class UserService {
   constructor(private prismaService: PrismaService) { }
@@ -32,7 +33,7 @@ export class UserService {
       });
       return response
     } catch (error) {
-      throw new Error(error);
+      ERROR_RESPONSE(error);
     }
   }
   async deleteUser(id: number[]) {
@@ -54,7 +55,7 @@ export class UserService {
       });
       return 'ok'
     } catch (error) {
-      throw new Error(error);
+      ERROR_RESPONSE(error);
     }
   }
 }

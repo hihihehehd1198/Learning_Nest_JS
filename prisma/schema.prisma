@@ -11,28 +11,31 @@ datasource db {
 }
 
 model User {
-  id                 Int      @id @default(autoincrement())
+  id                 Int           @id @default(autoincrement())
   username           String
-  email              String   @unique
+  email              String        @unique
   hashedPassword     String
   hashedRefreshToken String?
   Role               String?
   PhoneNumber        String?
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @default(now())
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @default(now())
   Banner             Banner[]
+  BookingList        BookingList[]
 }
 
 model Customer {
-  id             Int      @id @default(autoincrement())
+  id             Int           @id @default(autoincrement())
   accountName    String
   name           String?
-  email          String?  @unique
+  email          String?       @unique
   hashedPassword String?
   address        String?
   PhoneNumber    String?
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @default(now())
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @default(now())
+  ListOrder      ListOrder[]
+  BookingList    BookingList[]
 }
 
 model Article {
@@ -44,16 +47,19 @@ model Article {
 }
 
 model Brand {
-  id        Int      @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
   brandName String
   status    String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now())
+  Product   Product[]
 }
 
 model Banner {
   id        Int      @id @default(autoincrement())
   urlImg    String?
+  location  String?
+  status    Boolean
   user      User?    @relation(fields: [userId], references: [id])
   userId    Int?
   createdAt DateTime @default(now())
@@ -61,11 +67,12 @@ model Banner {
 }
 
 model ServiceShop {
-  id        Int      @id @default(autoincrement())
-  price     Float?
-  name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  id          Int           @id @default(autoincrement())
+  price       Float?
+  name        String
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @default(now())
+  BookingList BookingList[]
 }
 
 model Category {
@@ -74,4 +81,68 @@ model Category {
   status    Boolean?
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
+
+  ProductCategory ProductCategory[]
+}
+
+model Product {
+  id              Int               @id @default(autoincrement())
+  name            String
+  count           Int
+  price           Float
+  location        String?
+  Brand           Brand?            @relation(fields: [brandId], references: [id])
+  brandId         Int?
+  ProductCategory ProductCategory[]
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @default(now())
+  OrderProduct    OrderProduct[]
+}
+
+model ProductCategory {
+  id         Int      @id @default(autoincrement())
+  product    Product  @relation(fields: [productId], references: [id])
+  category   Category @relation(fields: [categoryId], references: [id])
+  productId  Int
+  categoryId Int
+}
+
+model ListOrder {
+  id            Int            @id @default(autoincrement())
+  orderStatus   OrderStatus
+  paymentStatus Boolean        @default(false)
+  customer      Customer       @relation(fields: [customerId], references: [id])
+  customerId    Int
+  totalPrice    Float
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @default(now())
+  OrderProduct  OrderProduct[]
+}
+
+model OrderProduct {
+  id          Int       @id @default(autoincrement())
+  product     Product   @relation(fields: [productId], references: [id])
+  order       ListOrder @relation(fields: [listOrderId], references: [id])
+  listOrderId Int
+  productId   Int
+}
+
+model BookingList {
+  id            Int         @id @default(autoincrement())
+  user          User        @relation(fields: [userId], references: [id])
+  userId        Int
+  customer      Customer    @relation(fields: [customerId], references: [id])
+  customerId    Int
+  service       ServiceShop @relation(fields: [serviceShopId], references: [id])
+  CustomerPhone String
+  timeBooking   DateTime
+  serviceShopId Int
+}
+
+enum OrderStatus {
+  IN_ACTIVE
+  ACTIVE
+  DELIVERY
+  DONE
+  CANCELED
 }

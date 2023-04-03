@@ -5,6 +5,7 @@ import { CustomerDto } from '../../auth/dto/customer/customer.dto';
 import { PrismaService } from '../../prisma/prisma.service';
 import { Customer } from '../customer/customer.entity';
 import * as argon from 'argon2';
+import { ERROR_RESPONSE } from 'src/shared/utils';
 @Injectable()
 export class CustomerService {
   constructor(
@@ -25,7 +26,7 @@ export class CustomerService {
       });
       return res;
     } catch (error) {
-      throw new Error(error);
+      ERROR_RESPONSE(error);
     }
   }
   async updateCustomerAccount(data: CustomerDto) {
@@ -40,7 +41,7 @@ export class CustomerService {
       });
       return res;
     } catch (error) {
-      throw new Error(error);
+      ERROR_RESPONSE(error);
     }
   }
   async deleteCustomerAccount(id: number[]) {
@@ -54,7 +55,7 @@ export class CustomerService {
       });
       return 'ok?'
     } catch (error) {
-      throw new Error(error);
+      ERROR_RESPONSE(error);
     }
   }
   async getAllCustomerAccount(id?: number) {
@@ -66,7 +67,7 @@ export class CustomerService {
         where: { id },
       });
     } catch (error) {
-      throw new Error(error);
+      ERROR_RESPONSE(error);
     }
   }
 }

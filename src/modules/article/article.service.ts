@@ -2,6 +2,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 import { Article } from './article.entity';
 import { ArticleDto } from '../../auth/dto/article/article.dto';
+import { ERROR_RESPONSE } from 'src/shared/utils';
 
 @Injectable()
 export class ArticleService {
@@ -17,7 +18,7 @@ export class ArticleService {
         },
       });
     } catch (error) {
-      throw new Error(error);
+      ERROR_RESPONSE(error);
     }
   }
   async updateArticle(data: ArticleDto) {
@@ -33,7 +34,7 @@ export class ArticleService {
       });
       return res
     } catch (error) {
-      throw new Error(error);
+      ERROR_RESPONSE(error);
     }
   }
   async createArticle(data: ArticleDto) {
@@ -43,7 +44,7 @@ export class ArticleService {
       });
       return res
     } catch (error) {
-      throw new Error(error);
+      ERROR_RESPONSE(error);
     }
   }
   async deleteArticle(listId: number[]) {
@@ -59,7 +60,7 @@ export class ArticleService {
       });
       return 'ok?'
     } catch (error) {
-      throw new Error(error);
+      ERROR_RESPONSE(error);
     }
   }
 }

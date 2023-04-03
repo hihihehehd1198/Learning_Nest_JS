@@ -18,6 +18,7 @@ import { ServiceShopModule } from './modules/serviceShop/serviceShop.module';
 import { CategoryModule } from './modules/category/category.module';
 import { RefreshTokenGuard } from './auth/guards/refreshToken.guard';
 import { MessageModule } from './modules/messages/messages.module';
+import { ProductModule } from './modules/product/product.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -41,6 +42,7 @@ import { MessageModule } from './modules/messages/messages.module';
     CategoryModule,
     BrandModule,
     MessageModule,
+    ProductModule
     // WebsocketsModule,
   ],
   controllers: [],

@@ -2,6 +2,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 import { ServiceShopDTO } from '../../auth/dto/serviceShop/serviceShop.dto';
 import { ServiceShop } from './serviceShop.entity';
+import { ERROR_RESPONSE } from 'src/shared/utils';
 
 @Injectable()
 export class ServiceShopService {
@@ -13,7 +14,7 @@ export class ServiceShopService {
       });
       return res
     } catch (error) {
-      throw new Error(error);
+      ERROR_RESPONSE(error);
     }
   }
   async getServiceShop(id?: number) {
@@ -22,7 +23,7 @@ export class ServiceShopService {
         ? await this.prismaService.serviceShop.findMany({ where: { id } })
         : await this.prismaService.serviceShop.findMany({});
     } catch (error) {
-      throw new Error(error);
+      ERROR_RESPONSE(error);
     }
   }
   async updateServiceShop(data: ServiceShopDTO) {
@@ -38,7 +39,7 @@ export class ServiceShopService {
       });
       return res
     } catch (error) {
-      throw new Error(error);
+      ERROR_RESPONSE(error);
     }
   }
   async deleteServiceShop(id: number[]) {
@@ -52,7 +53,7 @@ export class ServiceShopService {
       });
       return 'ok?'
     } catch (error) {
-      throw new Error(error);
+      ERROR_RESPONSE(error);
     }
   }
 }

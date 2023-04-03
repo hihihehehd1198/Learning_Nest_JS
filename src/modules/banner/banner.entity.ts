@@ -13,5 +13,13 @@ export class Banner {
   @Field()
   @IsOptional()
   userId?: number;
-  
+
+
+  @Field({ nullable: true })
+  @IsOptional()
+  status?: boolean
+
+  @Field({ nullable: true })
+  @IsOptional()
+  location?: string
 }

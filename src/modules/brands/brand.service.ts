@@ -2,6 +2,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { Injectable } from '@nestjs/common/decorators';
 import { BrandDto } from '../../auth/dto/brands/brand.dto';
 import { Brand } from './brand.entity';
+import { ERROR_RESPONSE } from 'src/shared/utils';
 
 @Injectable()
 export class BrandService {
@@ -13,7 +14,7 @@ export class BrandService {
         ? await this.prismaService.brand.findMany({ where: { id } })
         : await this.prismaService.brand.findMany();
     } catch (error) {
-      throw new Error(error);
+      ERROR_RESPONSE(error);
     }
   }
   async updateBrand(body: BrandDto) {
@@ -27,7 +28,7 @@ export class BrandService {
       });
       return res
     } catch (error) {
-      throw new Error(error);
+      ERROR_RESPONSE(error);
     }
   }
   async createBrand(data: Omit<BrandDto, 'id'>) {
@@ -37,7 +38,7 @@ export class BrandService {
       });
       return res
     } catch (error) {
-      throw new Error(error);
+      ERROR_RESPONSE(error);
     }
   }
   async deleteBrand(id: number[]) {
@@ -51,7 +52,7 @@ export class BrandService {
       });
       return 'ok'
     } catch (error) {
-      throw new Error(error);
+      ERROR_RESPONSE(error);
     }
   }
 }
