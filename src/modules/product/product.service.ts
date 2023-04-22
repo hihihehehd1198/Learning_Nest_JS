@@ -51,7 +51,7 @@ export class ProductService {
         return res
     }
 
-    async createCategory(data: ProductBodyDTO) {
+    async createProduct(data: ProductBodyDTO) {
         try {
             const { categoryId = [], brandId, ...rest } = data
             console.log('data', data)
@@ -88,7 +88,7 @@ export class ProductService {
     }
 
 
-    async updateCategory(data: ProductBodyDTO) {
+    async updateProduct(data: ProductBodyDTO) {
         try {
             const { categoryId = [], brandId, ...rest } = data
             console.log('data', data)

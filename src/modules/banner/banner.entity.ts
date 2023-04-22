@@ -22,4 +22,10 @@ export class Banner {
   @Field({ nullable: true })
   @IsOptional()
   location?: string
+
+  @Field({ nullable: true })
+  createdAt?: Date
+
+  @Field({ nullable: true })
+  updatedAt?: Date
 }

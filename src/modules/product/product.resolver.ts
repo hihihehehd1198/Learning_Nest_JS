@@ -22,11 +22,11 @@ export class ProductResolver {
     }
     @Mutation(() => Product)
     async createProduct(@Args('data') data: ProductBodyDTO) {
-        return await this.productService.createCategory(data)
+        return await this.productService.createProduct(data)
     }
     @Mutation(() => Product)
     async updateProduct(@Args('data') data: ProductBodyDTO) {
-        return await this.productService.updateCategory(data)
+        return await this.productService.updateProduct(data)
     }
     @Mutation(() => String)
     async deleteProduct(@Args('id', { type: () => [Int] }) id: number[]) {

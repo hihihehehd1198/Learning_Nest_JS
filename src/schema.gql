@@ -20,9 +20,11 @@ type Auth {
 }
 
 type Banner {
+  createdAt: DateTime
   id: Float!
   location: String
   status: Boolean
+  updatedAt: DateTime
   urlImg: String!
   userId: Float!
 }
@@ -33,6 +35,24 @@ input BannerDto {
   status: Boolean!
   urlImg: String
   userId: Int
+}
+
+type BookingList {
+  customer: Customer!
+  customerPhone: String!
+  id: Float!
+  serviceShop: ServiceShop!
+  timeBooking: DateTime!
+  user: User!
+}
+
+input BookingListDTO {
+  customerId: Int!
+  customerPhone: String!
+  id: Int
+  serviceShopId: Int!
+  timeBooking: DateTime!
+  userId: Int!
 }
 
 type Brand {
@@ -79,6 +99,16 @@ input CustomerDto {
   name: String!
 }
 
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+input FileUploadDTO {
+  file: String!
+  fileName: String!
+}
+
 type LogOutResponse {
   loggedOut: Boolean!
   message: String!
@@ -91,13 +121,15 @@ type MessageEntity {
 type Mutation {
   createArticle(data: ArticleDto!): Article!
   createBanner(body: BannerDto!): Banner!
+  createBooking(data: BookingListDTO!): BookingList!
   createBrand(body: BrandDto!): Brand!
   createCategory(body: CategoryDTO!): Category!
   createCustomerAccount(body: CustomerDto!): Customer!
   createProduct(data: ProductBodyDTO!): Product!
   createServiceShop(body: ServiceShopDTO!): ServiceShop!
   deleteArticle(id: [Int!]!): String!
-  deleteBanner(id: [Int!]!): Banner!
+  deleteBanner(id: [Int!]!): String!
+  deleteBooking(id: [Float!]): String!
   deleteBrand(id: [Int!]!): String!
   deleteCategory(id: [Int!]!): String!
   deleteCustomerAccount(id: [Int!]!): String!
@@ -105,6 +137,7 @@ type Mutation {
   deleteServiceShop(id: [Int!]!): String!
   deleteUser(id: [Int!]!): String!
   getNewTokens: NewTokensResponse!
+  getURLS3(fileName: String!): String!
   logOut(id: Int!): LogOutResponse!
   removeAuth(id: Int!): Auth!
   sendMessage: MessageEntity!
@@ -113,12 +146,14 @@ type Mutation {
   updateArticle(data: ArticleDto!): Article!
   updateAuth(updateAuthInput: UpdateAuthInput!): Auth!
   updateBanner(body: BannerDto!): Banner!
+  updateBooking(data: BookingListDTO!): BookingList!
   updateBrand(body: BrandDto!): Brand!
   updateCategory(body: CategoryDTO!): Category!
   updateCustomerAccount(body: CustomerDto!): Customer!
   updateProduct(data: ProductBodyDTO!): Product!
   updateServiceShop(body: ServiceShopDTO!): ServiceShop!
   updateUser(user: UserUpdateDto!): User!
+  uploadFile(data: FileUploadDTO!): String!
 }
 
 type NewTokensResponse {
@@ -148,6 +183,7 @@ input ProductBodyDTO {
 
 type Query {
   auth(id: Int!): Auth!
+  findBookingList(id: Int): [BookingList!]!
   findProduct(id: Int): [Product!]!
   getAllBanner(id: Float): [Banner!]!
   getAllBrand(id: Float): [Brand!]!

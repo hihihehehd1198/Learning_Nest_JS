@@ -2,6 +2,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory, Reflector } from '@nestjs/core';
 import { AuthGuard } from '@nestjs/passport';
 import { AppModule } from './app.module';
+import * as express from 'express'
 import { AccessTokenGuards } from './auth/guards/accessToken.guard';
 import { RefreshTokenGuard } from './auth/guards/refreshToken.guard';
 import * as firebase from 'firebase-admin';
@@ -31,7 +32,7 @@ async function bootstrap() {
   const reflector = app.get(Reflector);
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalGuards(new AccessTokenGuards(reflector));
-
+  app.use(express.json({ limit: "100mb" }))
   // const server = http.createServer(app.getHttpServer());
   // const ioServer = new io.Server(server)
   // app.useWebSocketAdapter(new IoAdapter(ioServer));

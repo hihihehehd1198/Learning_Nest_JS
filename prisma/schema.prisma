@@ -22,13 +22,13 @@ model User {
   updatedAt          DateTime      @default(now())
   Banner             Banner[]
   BookingList        BookingList[]
-}
+} 
 
 model Customer {
   id             Int           @id @default(autoincrement())
   accountName    String
   name           String?
-  email          String?       @unique
+  email          String?
   hashedPassword String?
   address        String?
   PhoneNumber    String?
@@ -133,8 +133,8 @@ model BookingList {
   userId        Int
   customer      Customer    @relation(fields: [customerId], references: [id])
   customerId    Int
-  service       ServiceShop @relation(fields: [serviceShopId], references: [id])
-  CustomerPhone String
+  serviceShop   ServiceShop @relation(fields: [serviceShopId], references: [id])
+  customerPhone String
   timeBooking   DateTime
   serviceShopId Int
 }

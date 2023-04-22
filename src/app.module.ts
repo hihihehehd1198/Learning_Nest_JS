@@ -19,6 +19,7 @@ import { CategoryModule } from './modules/category/category.module';
 import { RefreshTokenGuard } from './auth/guards/refreshToken.guard';
 import { MessageModule } from './modules/messages/messages.module';
 import { ProductModule } from './modules/product/product.module';
+import { BookingListModule } from './modules/bookingList/bookingList.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -42,10 +43,11 @@ import { ProductModule } from './modules/product/product.module';
     CategoryModule,
     BrandModule,
     MessageModule,
-    ProductModule
+    ProductModule,
+    BookingListModule
     // WebsocketsModule,
   ],
   controllers: [],
   providers: [PrismaService],
 })
-export class AppModule {}
+export class AppModule { }

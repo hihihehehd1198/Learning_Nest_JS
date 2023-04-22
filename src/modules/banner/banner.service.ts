@@ -69,7 +69,8 @@ export class BannerService {
           }
         }
       })
-      if (!resFind) {
+      console.log(resFind)
+      if (!resFind.length) {
         throw new Error("khong tim thay ban ghi")
       }
       await this.prismaService.banner.deleteMany({

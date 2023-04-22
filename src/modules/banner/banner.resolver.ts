@@ -1,3 +1,4 @@
+import { AWSService } from 'src/shared/aws.service';
 
 import {
   Resolver,
@@ -10,10 +11,13 @@ import {
 import { Banner } from './banner.entity';
 import { BannerService } from './banner.service';
 import { BannerDto } from '../../auth/dto/banner/banner.dto';
+import { FileBody } from 'src/shared/utils';
+import { FileUploadDTO } from 'src/auth/dto/fileUpload/file-upload.dto';
+import { type } from 'os';
 
 @Resolver()
 export class BannerResolver {
-  constructor(private bannerService: BannerService) { }
+  constructor(private bannerService: BannerService, private awsService: AWSService) { }
   @Query(() => [Banner])
   async getAllBanner(@Args('id', { nullable: true }) id?: number) {
     return this.bannerService.getBanner(id);
@@ -31,8 +35,19 @@ export class BannerResolver {
   ) {
     return this.bannerService.createBanner(data);
   }
-  @Mutation(() => Banner)
+  @Mutation(() => String)
   async deleteBanner(@Args('id', { type: () => [Int] }) id: number[]) {
     return this.bannerService.deleteBanner(id);
+  }
+
+  @Mutation(() => String)
+  async uploadFile(@Args('data', { type: () => FileUploadDTO }) data: FileUploadDTO) {
+    return await this.awsService.uploadFileToS3(data)
+  }
+
+  @Mutation(() => String)
+  async getURLS3(@Args('fileName', { type: () => String }) fileName: string) {
+    return await this.awsService.getURLS3({ fileName })
+
   }
 }
