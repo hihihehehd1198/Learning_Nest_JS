@@ -10,7 +10,7 @@ export class Banner {
   @IsOptional()
   urlImg?: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsOptional()
   userId?: number;
 

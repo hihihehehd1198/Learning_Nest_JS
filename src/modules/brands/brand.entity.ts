@@ -1,7 +1,9 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { IsBoolean, IsNumber, IsString, isString } from 'class-validator';
+import { type } from 'os';
 
-type statusBrand = 'Enable' | 'Disable';
+type BrandStatus = "ENABLED" | "DISABLED"
+
 
 @ObjectType()
 export class Brand {
@@ -14,6 +16,5 @@ export class Brand {
   brandName: String;
 
   @Field()
-  @IsBoolean()
-  status?: String;
+  status?: BrandStatus
 }

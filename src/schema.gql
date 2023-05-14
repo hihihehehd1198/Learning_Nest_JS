@@ -26,7 +26,7 @@ type Banner {
   status: Boolean
   updatedAt: DateTime
   urlImg: String!
-  userId: Float!
+  userId: Float
 }
 
 input BannerDto {
@@ -125,6 +125,7 @@ type Mutation {
   createBrand(body: BrandDto!): Brand!
   createCategory(body: CategoryDTO!): Category!
   createCustomerAccount(body: CustomerDto!): Customer!
+  createOrder(data: OrderDTO!): Order!
   createProduct(data: ProductBodyDTO!): Product!
   createServiceShop(body: ServiceShopDTO!): ServiceShop!
   deleteArticle(id: [Int!]!): String!
@@ -133,6 +134,7 @@ type Mutation {
   deleteBrand(id: [Int!]!): String!
   deleteCategory(id: [Int!]!): String!
   deleteCustomerAccount(id: [Int!]!): String!
+  deleteOrder(listId: [Float!]!): String!
   deleteProduct(id: [Int!]!): String!
   deleteServiceShop(id: [Int!]!): String!
   deleteUser(id: [Int!]!): String!
@@ -150,6 +152,7 @@ type Mutation {
   updateBrand(body: BrandDto!): Brand!
   updateCategory(body: CategoryDTO!): Category!
   updateCustomerAccount(body: CustomerDto!): Customer!
+  updateOrder(data: OrderDTO!): Order!
   updateProduct(data: ProductBodyDTO!): Product!
   updateServiceShop(body: ServiceShopDTO!): ServiceShop!
   updateUser(user: UserUpdateDto!): User!
@@ -159,6 +162,29 @@ type Mutation {
 type NewTokensResponse {
   accessToken: String!
   refreshToken: String!
+}
+
+type Order {
+  createdAt: DateTime!
+  customerName: String!
+  id: Int
+  orderStatus: String
+  paymentStatus: Boolean!
+  productOrder: [ProductOrder!]
+}
+
+input OrderDTO {
+  customerId: Int!
+  id: Int
+  listProductId: [OrderProductDto!]
+  orderStatus: String
+  paymentStatus: Boolean!
+}
+
+input OrderProductDto {
+  count: Int!
+  id: Int!
+  price: Float!
 }
 
 type Product {
@@ -181,6 +207,13 @@ input ProductBodyDTO {
   price: Float!
 }
 
+type ProductOrder {
+  count: Float!
+  id: Float!
+  name: String!
+  price: Float!
+}
+
 type Query {
   auth(id: Int!): Auth!
   findBookingList(id: Int): [BookingList!]!
@@ -189,6 +222,7 @@ type Query {
   getAllBrand(id: Float): [Brand!]!
   getArticle(id: Int): [Article!]!
   getCategory(id: Float): [Category!]!
+  getOrder(id: Int): [Order!]!
   getServiceShop(id: Float): [ServiceShop!]!
   hello: String!
   hello1: String!

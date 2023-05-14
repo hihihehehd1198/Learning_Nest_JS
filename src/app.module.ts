@@ -1,8 +1,8 @@
 import { BannerModule } from './modules/banner/banner.module';
-import { AccessTokenGuards } from './auth/guards/accessToken.guard';
+// import { AccessTokenGuards } from './auth/guards/accessToken.guard';
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+// import { AppController } from './app.controller';
+// import { AppService } from './app.service';
 import { PrismaService } from './prisma/prisma.service';
 import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
@@ -10,16 +10,19 @@ import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './modules/user/user.module';
 import { ConfigModule } from '@nestjs/config';
-import { APP_GUARD } from '@nestjs/core';
+// import { APP_GUARD } from '@nestjs/core';
 import { CustomerModule } from './modules/customer/customer.module';
 import { ArticleModule } from './modules/article/article.module';
 import { BrandModule } from './modules/brands/brand.module';
 import { ServiceShopModule } from './modules/serviceShop/serviceShop.module';
 import { CategoryModule } from './modules/category/category.module';
-import { RefreshTokenGuard } from './auth/guards/refreshToken.guard';
+// import { RefreshTokenGuard } from './auth/guards/refreshToken.guard';
 import { MessageModule } from './modules/messages/messages.module';
 import { ProductModule } from './modules/product/product.module';
 import { BookingListModule } from './modules/bookingList/bookingList.module';
+import { OrderModule } from './modules/orderList/orderList.module';
+import { ChatModule } from './chat/chat.module';
+import { ChatGateway } from './chat/chat.gateway';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -44,10 +47,11 @@ import { BookingListModule } from './modules/bookingList/bookingList.module';
     BrandModule,
     MessageModule,
     ProductModule,
-    BookingListModule
+    BookingListModule,
+    OrderModule,
     // WebsocketsModule,
   ],
   controllers: [],
-  providers: [PrismaService],
+  providers: [PrismaService, ChatGateway],
 })
 export class AppModule { }

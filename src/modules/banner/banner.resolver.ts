@@ -48,6 +48,6 @@ export class BannerResolver {
   @Mutation(() => String)
   async getURLS3(@Args('fileName', { type: () => String }) fileName: string) {
     return await this.awsService.getURLS3({ fileName })
-
+    
   }
 }

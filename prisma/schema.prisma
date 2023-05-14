@@ -22,7 +22,7 @@ model User {
   updatedAt          DateTime      @default(now())
   Banner             Banner[]
   BookingList        BookingList[]
-} 
+}
 
 model Customer {
   id             Int           @id @default(autoincrement())
@@ -47,17 +47,17 @@ model Article {
 }
 
 model Brand {
-  id        Int       @id @default(autoincrement())
+  id        Int         @id @default(autoincrement())
   brandName String
-  status    String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @default(now())
+  status    BrandStatus
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @default(now())
   Product   Product[]
 }
 
 model Banner {
   id        Int      @id @default(autoincrement())
-  urlImg    String?
+  urlImg    String?  @default("")
   location  String?
   status    Boolean
   user      User?    @relation(fields: [userId], references: [id])
@@ -109,13 +109,13 @@ model ProductCategory {
 
 model ListOrder {
   id            Int            @id @default(autoincrement())
-  orderStatus   OrderStatus
+  orderStatus   OrderStatus    @default(IN_ACTIVE)
   paymentStatus Boolean        @default(false)
   customer      Customer       @relation(fields: [customerId], references: [id])
   customerId    Int
-  totalPrice    Float
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @default(now())
+  orderCount    Int            @default(0)
   OrderProduct  OrderProduct[]
 }
 
@@ -123,6 +123,8 @@ model OrderProduct {
   id          Int       @id @default(autoincrement())
   product     Product   @relation(fields: [productId], references: [id])
   order       ListOrder @relation(fields: [listOrderId], references: [id])
+  count       Int
+  price       Float
   listOrderId Int
   productId   Int
 }
@@ -145,4 +147,9 @@ enum OrderStatus {
   DELIVERY
   DONE
   CANCELED
+}
+
+enum BrandStatus {
+  ENABLED
+  DISABLED
 }

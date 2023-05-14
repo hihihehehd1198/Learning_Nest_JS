@@ -27,8 +27,12 @@ async function bootstrap() {
     httpsOptions: {
       key: fs.readFileSync('src/assets/cert/RootCA.key'),
       cert: fs.readFileSync("src/assets/cert/RootCA.pem"),
+    },
+    cors: {
+      origin: "http://localhost:5000/"
     }
   });
+  app.enableCors();
   const reflector = app.get(Reflector);
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalGuards(new AccessTokenGuards(reflector));
@@ -36,9 +40,10 @@ async function bootstrap() {
   // const server = http.createServer(app.getHttpServer());
   // const ioServer = new io.Server(server)
   // app.useWebSocketAdapter(new IoAdapter(ioServer));
-  app.enableCors();
+
 
   await app.listen(4000, "192.168.43.133");
+  // app.enableCors();
   // app.listen(4000)
 }
 bootstrap();
