@@ -1,3 +1,4 @@
+import { Optional } from "@nestjs/common";
 import { Field, Float, InputType, Int } from "@nestjs/graphql";
 import { IsOptional } from "class-validator";
 
@@ -22,9 +23,11 @@ export class ProductBodyDTO {
     @Field()
     location: string
 
-    @Field(() => Int, { nullable: true })
+    @Optional()
+    @Field(() => Int!, { nullable: true })
     brandId?: number
 
+    @Optional()
     @Field(() => [Int!], { nullable: true })
     categoryId?: number[]
 }

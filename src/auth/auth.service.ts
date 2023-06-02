@@ -7,6 +7,7 @@ import { ConfigService } from '@nestjs/config';
 import * as argon from 'argon2';
 import { SignInInput } from './dto/signin-input';
 import { AppService } from 'src/app.service';
+import { ERROR_RESPONSE } from 'src/shared/utils';
 // import { SignUpInput } from './dto/update-auth.input';
 
 @Injectable()
@@ -43,14 +44,14 @@ export class AuthService {
       where: { email: signInInput.email },
     });
     if (!user) {
-      throw new ForbiddenException('invalid credientals ');
+      throw new ForbiddenException('invalid credientals');
     }
     const passWordMatch = await argon.verify(
       user.hashedPassword,
       signInInput.password,
     );
     if (!passWordMatch) {
-      throw new ForbiddenException('wrong password ! ');
+      throw new ForbiddenException('wrong password !');
     }
     const { accessToken, refreshToken } = await this.createTokens(
       user.id,
@@ -141,5 +142,46 @@ export class AuthService {
     );
     await this.updateRefreshToken(user.id, refreshToken);
     return { user, refreshToken, accessToken };
+  }
+
+  async checkUserWithFirebase(data: {
+    email: string,
+    userName?: string
+  }) {
+    try {
+      const { email, userName } = data
+      const findUser = await this.prisma.user.findFirst({
+        where: {
+          email
+        },
+        select: {
+          id: true,
+        }
+      })
+
+      // throw new Error("cmm")
+      if (!findUser) {
+        const defaultPassword = "123456"
+        const createUserfromFirebase = await this.signup({
+          username: userName || '',
+          password: defaultPassword,
+          email,
+        })
+        const firstOauthResponse = {
+          ...createUserfromFirebase,
+          requireChangePassword: true,
+        }
+        return firstOauthResponse
+      }
+      const response = await this.createTokens(findUser.id, email)
+      return {
+        ...response,
+        requireChangePassword: false,
+      };
+    } catch (error) {
+      ERROR_RESPONSE(error)
+    }
+
+
   }
 }

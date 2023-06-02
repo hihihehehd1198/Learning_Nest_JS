@@ -114,11 +114,18 @@ type LogOutResponse {
   message: String!
 }
 
+input LoginFirebaseInput {
+  email: String!
+  userName: String!
+}
+
 type MessageEntity {
   response: String!
 }
 
 type Mutation {
+  changePassword(user: UserUpdatePassDto!): String!
+  checkUserLoginFirebase(signInInput: LoginFirebaseInput!): NewTokensResponse!
   createArticle(data: ArticleDto!): Article!
   createBanner(body: BannerDto!): Banner!
   createBooking(data: BookingListDTO!): BookingList!
@@ -126,7 +133,7 @@ type Mutation {
   createCategory(body: CategoryDTO!): Category!
   createCustomerAccount(body: CustomerDto!): Customer!
   createOrder(data: OrderDTO!): Order!
-  createProduct(data: ProductBodyDTO!): Product!
+  createProduct(body: ProductBodyDTO!): Product!
   createServiceShop(body: ServiceShopDTO!): ServiceShop!
   deleteArticle(id: [Int!]!): String!
   deleteBanner(id: [Int!]!): String!
@@ -153,7 +160,7 @@ type Mutation {
   updateCategory(body: CategoryDTO!): Category!
   updateCustomerAccount(body: CustomerDto!): Customer!
   updateOrder(data: OrderDTO!): Order!
-  updateProduct(data: ProductBodyDTO!): Product!
+  updateProduct(body: ProductBodyDTO!): Product!
   updateServiceShop(body: ServiceShopDTO!): ServiceShop!
   updateUser(user: UserUpdateDto!): User!
   uploadFile(data: FileUploadDTO!): String!
@@ -162,6 +169,7 @@ type Mutation {
 type NewTokensResponse {
   accessToken: String!
   refreshToken: String!
+  requireChangePassword: Boolean
 }
 
 type Order {
@@ -171,6 +179,7 @@ type Order {
   orderStatus: String
   paymentStatus: Boolean!
   productOrder: [ProductOrder!]
+  updatedAt: DateTime!
 }
 
 input OrderDTO {
@@ -251,7 +260,7 @@ input SignInInput {
 type SignResponse {
   accessToken: String!
   refreshToken: String!
-  user: User!
+  user: User
 }
 
 input SignUpInput {
@@ -287,4 +296,9 @@ input UserUpdateDto {
   id: Int!
   password: String
   username: String
+}
+
+input UserUpdatePassDto {
+  email: String!
+  password: String!
 }

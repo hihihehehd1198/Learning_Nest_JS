@@ -17,6 +17,8 @@ export class ArticleService {
           id,
         },
       });
+
+      // throw new Error('cmm')
     } catch (error) {
       ERROR_RESPONSE(error);
     }

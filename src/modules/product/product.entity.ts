@@ -10,13 +10,13 @@ export class Product {
     @Field(() => Int!, { nullable: true })
     id?: number;
 
-    @Field({ nullable: true })
+    @Field(() => Number, { nullable: true })
     price: number;
 
     @Field()
     name: string;
 
-    @Field(() => Float)
+    @Field()
     count: number
 
     @Field({ nullable: true })

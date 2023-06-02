@@ -26,10 +26,20 @@ export class ProductService {
                 count: true,
                 location: true,
                 price: true,
-                Brand: true,
+                Brand: {
+                    select: {
+                        id: true,
+                        brandName: true
+                    }
+                },
                 ProductCategory: {
                     select: {
-                        category: true
+                        category: {
+                            select: {
+                                id: true,
+                                name: true,
+                            }
+                        }
                     }
                 }
             },
@@ -49,8 +59,8 @@ export class ProductService {
 
         console.log(res)
         return res
+        // throw new Error('cmm')
     }
-
     async createProduct(data: ProductBodyDTO) {
         try {
             const { categoryId = [], brandId, ...rest } = data
@@ -74,15 +84,14 @@ export class ProductService {
                             categoryId: x,
                         }
                     })]
-                    // data: [{
-                    //     categoryId: categoryId[0],
-                    //     productId: getNewId
-                    // }]
                 })
             }
 
-            return addProductTask as ProductBodyDTO
+            //find with new record 
+            const newRecord = await this.getAll(getNewId)
+            return newRecord[0]
         } catch (error) {
+            console.log("________________err", error)
             ERROR_RESPONSE(error)
         }
     }
@@ -118,7 +127,8 @@ export class ProductService {
                     ...rest
                 }
             })
-            return res as Product
+            const updateRecord = await this.getAll(res?.id)
+            return updateRecord[0]
         } catch (error) {
             ERROR_RESPONSE(error)
         }
@@ -128,7 +138,7 @@ export class ProductService {
 
     async deleteProduct(id?: number[]) {
         try {
-            const findProduct = this.prismaService.product.findMany({
+            const findProduct = await this.prismaService.product.findMany({
                 where: {
                     id: {
                         in: [...id]
@@ -139,23 +149,31 @@ export class ProductService {
                 console.log(findProduct)
                 throw new Error('cannot find product ')
             }
-            const listQueryDelete = id.map(x => {
-                return this.prismaService.productCategory.deleteMany({
-                    where: {
-                        productId: x
+
+            await this.prismaService.productCategory.deleteMany({
+                where: {
+                    productId: {
+                        in: [...id]
                     }
-                })
+                }
             })
-
-
-            const queryDeleteProduct = this.prismaService.product.deleteMany({
+            await this.prismaService.orderProduct.deleteMany({
+                where: {
+                    productId: {
+                        in: [...id]
+                    }
+                }
+            })
+            await this.prismaService.product.deleteMany({
                 where: {
                     id: {
                         in: [...id]
                     }
                 }
             })
-            await Promise.all([findProduct, ...listQueryDelete, queryDeleteProduct])
+
+
+            // await Promise.all([findProduct, listQueryDelete, queryDeleteProduct])
             return "ok!"
         } catch (error) {
             ERROR_RESPONSE(error)

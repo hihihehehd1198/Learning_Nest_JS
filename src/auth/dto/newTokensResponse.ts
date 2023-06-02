@@ -1,12 +1,19 @@
 import { Field, ObjectType } from "@nestjs/graphql";
+import { IsOptional } from "class-validator";
 
 
 
 @ObjectType()
-export class NewTokensResponse{
+export class NewTokensResponse {
     @Field()
-    accessToken:string;   
+    accessToken: string;
 
     @Field()
-    refreshToken:string;
+    refreshToken: string;
+
+
+
+    @IsOptional()
+    @Field({ nullable: true })
+    requireChangePassword?: boolean
 }

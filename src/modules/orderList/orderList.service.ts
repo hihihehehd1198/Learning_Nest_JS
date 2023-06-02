@@ -45,6 +45,7 @@ export class OrderService {
                         }
                     },
                     createdAt: true,
+                    updatedAt: true,
                     // OrderProduct: {
                     //     select: {
                     //         id: true,
@@ -209,13 +210,18 @@ export class OrderService {
                         select: { name: true }
                     },
                     createdAt: true,
-
+                    updatedAt: true,
                     OrderProduct: {
                         select: {
                             id: true,
                             listOrderId: true,
                             count: true,
                             price: true,
+                            product: {
+                                select: {
+                                    name: true
+                                }
+                            }
                         }
                     }
                 }
@@ -226,8 +232,14 @@ export class OrderService {
                 res.map(x => {
                     x['customerName'] = x['customer'].name
                     delete x.customer
+                    // x['OrderProduct']['name'] = x['OrderProduct']['product']['name']
                     x['productOrder'] = x['OrderProduct']
+                    if (x) {
+
+                    }
+                    console.log(x['productOrder'])
                     delete x['OrderProduct']
+
                     return x
                 })
 

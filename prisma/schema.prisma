@@ -48,7 +48,7 @@ model Article {
 
 model Brand {
   id        Int         @id @default(autoincrement())
-  brandName String
+  brandName String      @unique()
   status    BrandStatus
   createdAt DateTime    @default(now())
   updatedAt DateTime    @default(now())
@@ -87,7 +87,7 @@ model Category {
 
 model Product {
   id              Int               @id @default(autoincrement())
-  name            String
+  name            String            @unique()
   count           Int
   price           Float
   location        String?
@@ -121,7 +121,7 @@ model ListOrder {
 
 model OrderProduct {
   id          Int       @id @default(autoincrement())
-  product     Product   @relation(fields: [productId], references: [id])
+  product     Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
   order       ListOrder @relation(fields: [listOrderId], references: [id])
   count       Int
   price       Float

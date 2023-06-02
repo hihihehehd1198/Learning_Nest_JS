@@ -29,7 +29,7 @@ async function bootstrap() {
       cert: fs.readFileSync("src/assets/cert/RootCA.pem"),
     },
     cors: {
-      origin: "http://localhost:5000/"
+      origin: "http://127.0.0.1:1234/"
     }
   });
   app.enableCors();
@@ -40,7 +40,7 @@ async function bootstrap() {
   // const server = http.createServer(app.getHttpServer());
   // const ioServer = new io.Server(server)
   // app.useWebSocketAdapter(new IoAdapter(ioServer));
-
+  
 
   await app.listen(4000, "192.168.43.133");
   // app.enableCors();

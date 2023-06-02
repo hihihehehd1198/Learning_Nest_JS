@@ -37,6 +37,10 @@ export class Order {
     @Field()
     createdAt: Date
 
+
+    @Field()
+    updatedAt: Date
+
     // @Field(() => Float, { nullable: true })
     // totalPrice?: number
 

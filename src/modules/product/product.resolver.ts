@@ -21,12 +21,14 @@ export class ProductResolver {
         return await id ? this.productService.getAll(id) : this.productService.getAll()
     }
     @Mutation(() => Product)
-    async createProduct(@Args('data') data: ProductBodyDTO) {
-        return await this.productService.createProduct(data)
+    async createProduct(@Args('body') body: ProductBodyDTO) {
+        const res = await this.productService.createProduct(body)
+        console.log("resolver________", res)
+        return res;
     }
     @Mutation(() => Product)
-    async updateProduct(@Args('data') data: ProductBodyDTO) {
-        return await this.productService.updateProduct(data)
+    async updateProduct(@Args('body') body: ProductBodyDTO) {
+        return await this.productService.updateProduct(body)
     }
     @Mutation(() => String)
     async deleteProduct(@Args('id', { type: () => [Int] }) id: number[]) {

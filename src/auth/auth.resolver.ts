@@ -14,6 +14,7 @@ import { CurrentUser } from './decorators/currentUser.decorator';
 import { RefreshTokenGuard } from './guards/refreshToken.guard';
 import { UseGuards } from '@nestjs/common';
 import { AccessTokenGuards } from './guards/accessToken.guard';
+import { LoginFirebaseInput } from './dto/login-firebase-input';
 
 @Resolver(() => Auth)
 export class AuthResolver {
@@ -82,5 +83,12 @@ export class AuthResolver {
   getNewTokens(@CurrentUserId() userId: number) {
     // console.log(refreshToken)
     return this.authService.getNewTokens(userId);
+  }
+
+
+  @Public()
+  @Mutation(() => NewTokensResponse)
+  async checkUserLoginFirebase(@Args('signInInput') signInInput: LoginFirebaseInput) {
+    return await this.authService.checkUserWithFirebase(signInInput)
   }
 }

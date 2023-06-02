@@ -58,4 +58,36 @@ export class UserService {
       ERROR_RESPONSE(error);
     }
   }
+
+  async changePassword(user: {
+    email: string,
+    password: string
+  }) {
+    console.log("user.password", user.password)
+
+    try {
+      const hashedPassword = user?.password ? await hash(user.password) : null;
+      //findUser before change password 
+      const userFind = await this.prismaService.user.findUnique({
+        where: {
+          email: user.email
+        }
+      })
+      if (!userFind) {
+        throw new Error('khong tim thay user ')
+      }
+      const response = await this.prismaService.user.update({
+        where: {
+          id: userFind.id
+        },
+        data: {
+          hashedPassword,
+        }
+      })
+      return 'password has changed'
+    } catch (error) {
+      ERROR_RESPONSE(error)
+    }
+    // return await null;
+  }
 }

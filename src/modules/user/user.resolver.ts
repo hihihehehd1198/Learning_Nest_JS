@@ -11,6 +11,8 @@ import { PrismaService } from '../../prisma/prisma.service';
 import { User } from './user.entity';
 import { Optional } from '@nestjs/common';
 import { UserUpdateDto } from '../../auth/dto/user/user-response';
+import { Public } from 'src/auth/decorators/public.decorator';
+import { UserUpdatePassDto } from 'src/auth/dto/user/user-updatepass';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -35,6 +37,10 @@ export class UserResolver {
     return this.userService.deleteUser(id);
   }
 
+  @Public()
+  @Mutation(() => String)
+  async changePassword(@Args('user') user: UserUpdatePassDto) {
+    return await this.userService.changePassword(user)
+  }
 
-  
 }

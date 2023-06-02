@@ -9,6 +9,6 @@ export class SignResponse {
     @Field()
     refreshToken: string;
 
-    @Field(() => User)
-    user: User
+    @Field(() => User, { nullable: true })
+    user?: User
 }
