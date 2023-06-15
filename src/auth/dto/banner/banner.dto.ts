@@ -14,11 +14,10 @@ export class BannerDto {
   @IsOptional()
   userId?: number;
 
-
   @Field({ nullable: true })
   @IsOptional()
-  location?: string
+  location?: string;
 
   @Field()
-  status: boolean
+  status: boolean;
 }

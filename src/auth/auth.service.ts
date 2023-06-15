@@ -17,7 +17,7 @@ export class AuthService {
     private jwtService: JwtService,
     // private forkService : AppService,
     private configService: ConfigService,
-  ) { }
+  ) {}
   async signup(signUpInput: SignUpInput) {
     const hashedPassword = await argon.hash(signUpInput.password);
     const user = await this.prisma.user.create({
@@ -26,7 +26,7 @@ export class AuthService {
         hashedPassword,
         email: signUpInput.email,
         Role: signUpInput.Role,
-        PhoneNumber: signUpInput.PhoneNumber
+        PhoneNumber: signUpInput.PhoneNumber,
       },
     });
     const { accessToken, refreshToken } = await this.createTokens(
@@ -144,44 +144,39 @@ export class AuthService {
     return { user, refreshToken, accessToken };
   }
 
-  async checkUserWithFirebase(data: {
-    email: string,
-    userName?: string
-  }) {
+  async checkUserWithFirebase(data: { email: string; userName?: string }) {
     try {
-      const { email, userName } = data
+      const { email, userName } = data;
       const findUser = await this.prisma.user.findFirst({
         where: {
-          email
+          email,
         },
         select: {
           id: true,
-        }
-      })
+        },
+      });
 
       // throw new Error("cmm")
       if (!findUser) {
-        const defaultPassword = "123456"
+        const defaultPassword = '123456';
         const createUserfromFirebase = await this.signup({
           username: userName || '',
           password: defaultPassword,
           email,
-        })
+        });
         const firstOauthResponse = {
           ...createUserfromFirebase,
           requireChangePassword: true,
-        }
-        return firstOauthResponse
+        };
+        return firstOauthResponse;
       }
-      const response = await this.createTokens(findUser.id, email)
+      const response = await this.createTokens(findUser.id, email);
       return {
         ...response,
         requireChangePassword: false,
       };
     } catch (error) {
-      ERROR_RESPONSE(error)
+      ERROR_RESPONSE(error);
     }
-
-
   }
 }

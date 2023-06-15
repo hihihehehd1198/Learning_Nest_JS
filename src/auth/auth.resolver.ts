@@ -18,7 +18,7 @@ import { LoginFirebaseInput } from './dto/login-firebase-input';
 
 @Resolver(() => Auth)
 export class AuthResolver {
-  constructor(private readonly authService: AuthService) { }
+  constructor(private readonly authService: AuthService) {}
 
   @Mutation(() => SignResponse)
   @Public()
@@ -85,10 +85,11 @@ export class AuthResolver {
     return this.authService.getNewTokens(userId);
   }
 
-
   @Public()
   @Mutation(() => NewTokensResponse)
-  async checkUserLoginFirebase(@Args('signInInput') signInInput: LoginFirebaseInput) {
-    return await this.authService.checkUserWithFirebase(signInInput)
+  async checkUserLoginFirebase(
+    @Args('signInInput') signInInput: LoginFirebaseInput,
+  ) {
+    return await this.authService.checkUserWithFirebase(signInInput);
   }
 }

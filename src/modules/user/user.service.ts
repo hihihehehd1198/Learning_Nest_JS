@@ -2,11 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { UserUpdateDto } from '../../auth/dto/user/user-response';
 import { PrismaService } from '../../prisma/prisma.service';
 import { User } from './user.entity';
-import { hash } from 'argon2'
+import { hash } from 'argon2';
 import { ERROR_RESPONSE } from 'src/shared/utils';
 @Injectable()
 export class UserService {
-  constructor(private prismaService: PrismaService) { }
+  constructor(private prismaService: PrismaService) {}
 
   async getAll(id?: number) {
     return await this.prismaService.user.findMany({
@@ -17,9 +17,9 @@ export class UserService {
   }
 
   async updateUser(user: UserUpdateDto) {
-    console.log("user.password", user.password)
+    console.log('user.password', user.password);
     const hashedPassword = user?.password ? await hash(user.password) : null;
-    delete user.password
+    delete user.password;
     try {
       if (!user.id) {
         throw new Error('error ');
@@ -31,7 +31,7 @@ export class UserService {
         },
         data: hashedPassword ? { ...user, hashedPassword } : { ...user },
       });
-      return response
+      return response;
     } catch (error) {
       ERROR_RESPONSE(error);
     }
@@ -53,40 +53,37 @@ export class UserService {
           ],
         },
       });
-      return 'ok'
+      return 'ok';
     } catch (error) {
       ERROR_RESPONSE(error);
     }
   }
 
-  async changePassword(user: {
-    email: string,
-    password: string
-  }) {
-    console.log("user.password", user.password)
+  async changePassword(user: { email: string; password: string }) {
+    console.log('user.password', user.password);
 
     try {
       const hashedPassword = user?.password ? await hash(user.password) : null;
-      //findUser before change password 
+      //findUser before change password
       const userFind = await this.prismaService.user.findUnique({
         where: {
-          email: user.email
-        }
-      })
+          email: user.email,
+        },
+      });
       if (!userFind) {
-        throw new Error('khong tim thay user ')
+        throw new Error('khong tim thay user ');
       }
       const response = await this.prismaService.user.update({
         where: {
-          id: userFind.id
+          id: userFind.id,
         },
         data: {
           hashedPassword,
-        }
-      })
-      return 'password has changed'
+        },
+      });
+      return 'password has changed';
     } catch (error) {
-      ERROR_RESPONSE(error)
+      ERROR_RESPONSE(error);
     }
     // return await null;
   }

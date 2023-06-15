@@ -12,12 +12,6 @@ import { IsOptional } from 'class-validator';
 import { User } from '../../../modules/user/user.entity';
 // import { User } from '../../../modules/user/user.entity'
 
-
-
-
-
-
-
 @InputType()
 export class UserUpdateDto {
   @Field(() => Int, { nullable: false })

@@ -6,7 +6,7 @@ import { ERROR_RESPONSE } from 'src/shared/utils';
 
 @Injectable()
 export class BrandService {
-  constructor(private prismaService: PrismaService) { }
+  constructor(private prismaService: PrismaService) {}
 
   async getBrand(id?: number) {
     try {
@@ -26,7 +26,7 @@ export class BrandService {
         },
         data,
       });
-      return res
+      return res;
     } catch (error) {
       ERROR_RESPONSE(error);
     }
@@ -36,7 +36,7 @@ export class BrandService {
       const res: Brand = await this.prismaService.brand.create({
         data,
       });
-      return res
+      return res;
     } catch (error) {
       ERROR_RESPONSE(error);
     }
@@ -50,7 +50,7 @@ export class BrandService {
           },
         },
       });
-      return 'ok'
+      return 'ok';
     } catch (error) {
       ERROR_RESPONSE(error);
     }

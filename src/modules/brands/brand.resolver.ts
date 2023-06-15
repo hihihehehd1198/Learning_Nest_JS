@@ -5,7 +5,7 @@ import { BrandDto } from '../../auth/dto/brands/brand.dto';
 
 @Resolver(() => Brand)
 export class BrandResolver {
-  constructor(private brandService: BrandService) { }
+  constructor(private brandService: BrandService) {}
   @Query(() => [Brand])
   async getAllBrand(@Args('id', { nullable: true }) id?: number) {
     return await this.brandService.getBrand(id);

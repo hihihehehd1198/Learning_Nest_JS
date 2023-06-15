@@ -6,4 +6,4 @@ import { AWSService } from 'src/shared/aws.service';
 @Module({
   providers: [PrismaService, BannerResolver, BannerService, AWSService],
 })
-export class BannerModule { }
+export class BannerModule {}

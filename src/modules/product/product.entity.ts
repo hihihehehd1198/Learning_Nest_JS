@@ -7,27 +7,26 @@ import { Brand } from '../brands/brand.entity';
 
 @ObjectType()
 export class Product {
-    @Field(() => Int!, { nullable: true })
-    id?: number;
+  @Field(() => Int!, { nullable: true })
+  id?: number;
 
-    @Field(() => Number, { nullable: true })
-    price: number;
+  @Field(() => Number, { nullable: true })
+  price: number;
 
-    @Field()
-    name: string;
+  @Field()
+  name: string;
 
-    @Field()
-    count: number
+  @Field()
+  count: number;
 
-    @Field({ nullable: true })
-    location?: string
+  @Field({ nullable: true })
+  location?: string;
 
-    @IsOptional()
-    @Field({ nullable: true })
-    Brand?: Brand
+  @IsOptional()
+  @Field({ nullable: true })
+  Brand?: Brand;
 
-
-    @IsOptional()
-    @Field(() => [Category], { nullable: true })
-    Category?: Category[]
+  @IsOptional()
+  @Field(() => [Category], { nullable: true })
+  Category?: Category[];
 }

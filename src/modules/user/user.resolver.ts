@@ -16,7 +16,7 @@ import { UserUpdatePassDto } from 'src/auth/dto/user/user-updatepass';
 
 @Resolver(() => User)
 export class UserResolver {
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService) {}
 
   @Query(() => [User], { name: 'listUser' })
   findAll(
@@ -40,7 +40,6 @@ export class UserResolver {
   @Public()
   @Mutation(() => String)
   async changePassword(@Args('user') user: UserUpdatePassDto) {
-    return await this.userService.changePassword(user)
+    return await this.userService.changePassword(user);
   }
-
 }

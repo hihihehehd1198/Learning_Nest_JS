@@ -12,7 +12,7 @@ import { CustomerService } from '../customer/customer.service';
 
 @Resolver(() => Customer)
 export class CustomerResolver {
-  constructor(private customerService: CustomerService) { }
+  constructor(private customerService: CustomerService) {}
 
   @Query(() => [Customer], { name: 'listCustomerAccount' })
   async getAll(

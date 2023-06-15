@@ -1,14 +1,19 @@
 import { ArticleService } from './article.service';
-import { Args, Int, Mutation, ObjectType, Query, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  Int,
+  Mutation,
+  ObjectType,
+  Query,
+  Resolver,
+} from '@nestjs/graphql';
 import { Article } from './article.entity';
 
 import { ArticleDto } from '../../auth/dto/article/article.dto';
 
-
-
 @Resolver(() => Article)
 export class ArticleResolver {
-  constructor(private articleService: ArticleService) { }
+  constructor(private articleService: ArticleService) {}
   @Query(() => [Article])
   async getArticle(
     @Args('id', { type: () => Int, nullable: true }) id: number,
@@ -27,7 +32,9 @@ export class ArticleResolver {
   }
 
   @Mutation(() => String)
-  async deleteArticle(@Args('id', { type: () => [Int], nullable: false }) id: number[]) {
+  async deleteArticle(
+    @Args('id', { type: () => [Int], nullable: false }) id: number[],
+  ) {
     return await this.articleService.deleteArticle(id);
   }
 }

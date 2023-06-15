@@ -2,14 +2,14 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory, Reflector } from '@nestjs/core';
 import { AuthGuard } from '@nestjs/passport';
 import { AppModule } from './app.module';
-import * as express from 'express'
+import * as express from 'express';
 import { AccessTokenGuards } from './auth/guards/accessToken.guard';
 import { RefreshTokenGuard } from './auth/guards/refreshToken.guard';
 import * as firebase from 'firebase-admin';
 import * as http from 'http';
 import * as io from 'socket.io';
 import { IoAdapter } from '@nestjs/platform-socket.io';
-import * as  fs from 'fs'
+import * as fs from 'fs';
 const firebaseConfig = {
   apiKey: 'AIzaSyDkZSndxYuL_T_BuI3mJjXYc_woBcL2uDM',
   authDomain: 'thoikhoabieu-a5075.firebaseapp.com',
@@ -26,23 +26,22 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     httpsOptions: {
       key: fs.readFileSync('src/assets/cert/RootCA.key'),
-      cert: fs.readFileSync("src/assets/cert/RootCA.pem"),
+      cert: fs.readFileSync('src/assets/cert/RootCA.pem'),
     },
     cors: {
-      origin: "http://127.0.0.1:1234/"
-    }
+      origin: 'http://127.0.0.1:1234/',
+    },
   });
   app.enableCors();
   const reflector = app.get(Reflector);
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalGuards(new AccessTokenGuards(reflector));
-  app.use(express.json({ limit: "100mb" }))
+  app.use(express.json({ limit: '100mb' }));
   // const server = http.createServer(app.getHttpServer());
   // const ioServer = new io.Server(server)
   // app.useWebSocketAdapter(new IoAdapter(ioServer));
-  
 
-  await app.listen(4000, "192.168.43.133");
+  await app.listen(4000, '192.168.43.133');
   // app.enableCors();
   // app.listen(4000)
 }

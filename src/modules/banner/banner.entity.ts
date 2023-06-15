@@ -14,18 +14,17 @@ export class Banner {
   @IsOptional()
   userId?: number;
 
+  @Field({ nullable: true })
+  @IsOptional()
+  status?: boolean;
 
   @Field({ nullable: true })
   @IsOptional()
-  status?: boolean
+  location?: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  location?: string
+  createdAt?: Date;
 
   @Field({ nullable: true })
-  createdAt?: Date
-
-  @Field({ nullable: true })
-  updatedAt?: Date
+  updatedAt?: Date;
 }

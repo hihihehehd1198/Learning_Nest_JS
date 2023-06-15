@@ -4,10 +4,6 @@ import { PrismaService } from '../../prisma/prisma.service';
 import { UserService } from './user.service';
 import { AWSService } from 'src/shared/aws.service';
 @Module({
-    providers: [
-        PrismaService,
-        UserResolver,
-        UserService,
-    ],
+  providers: [PrismaService, UserResolver, UserService],
 })
-export class UserModule { }
+export class UserModule {}

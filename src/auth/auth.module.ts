@@ -18,5 +18,4 @@ import { AppService } from 'src/app.service';
     RefreshTokenStrategy,
   ],
 })
-export class AuthModule { }
-  
+export class AuthModule {}

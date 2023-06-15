@@ -6,7 +6,7 @@ import { CategoryService } from './category.service';
 
 @Resolver(() => Category)
 export class CategoryResolver {
-  constructor(private categoryService: CategoryService) { }
+  constructor(private categoryService: CategoryService) {}
 
   @Query(() => [Category])
   async getCategory(@Args('id', { nullable: true }) id: number) {

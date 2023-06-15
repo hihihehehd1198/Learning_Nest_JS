@@ -6,7 +6,7 @@ import { ERROR_RESPONSE } from 'src/shared/utils';
 
 @Injectable()
 export class BannerService {
-  constructor(private prismaService: PrismaService) { }
+  constructor(private prismaService: PrismaService) {}
 
   async getBanner(id?: number) {
     try {
@@ -24,7 +24,7 @@ export class BannerService {
           ...data,
         },
       });
-      return res
+      return res;
     } catch (error) {
       ERROR_RESPONSE(error);
     }
@@ -32,14 +32,14 @@ export class BannerService {
   async updateBanner(data: BannerDto) {
     const { id, userId, ...body } = data;
     try {
-      console.log("userId", userId)
+      console.log('userId', userId);
       const findUser = await this.prismaService.banner.findFirst({
         where: {
-          id
-        }
-      })
+          id,
+        },
+      });
       if (!findUser) {
-        throw new Error("khong tim thay ban ghi")
+        throw new Error('khong tim thay ban ghi');
       }
       const res = await this.prismaService.banner.update({
         where: {
@@ -49,15 +49,15 @@ export class BannerService {
           ...body,
           user: {
             connect: {
-              id: userId
-            }
-          }
+              id: userId,
+            },
+          },
         },
       });
-      console.log(res)
-      return res
+      console.log(res);
+      return res;
     } catch (error) {
-      ERROR_RESPONSE(error)
+      ERROR_RESPONSE(error);
     }
   }
   async deleteBanner(id: Array<number>) {
@@ -65,13 +65,13 @@ export class BannerService {
       const resFind = await this.prismaService.banner.findMany({
         where: {
           id: {
-            in: [...id]
-          }
-        }
-      })
-      console.log(resFind)
+            in: [...id],
+          },
+        },
+      });
+      console.log(resFind);
       if (!resFind.length) {
-        throw new Error("khong tim thay ban ghi")
+        throw new Error('khong tim thay ban ghi');
       }
       await this.prismaService.banner.deleteMany({
         where: {
@@ -80,7 +80,7 @@ export class BannerService {
           },
         },
       });
-      return 'ok?'
+      return 'ok?';
     } catch (error) {
       ERROR_RESPONSE(error);
     }

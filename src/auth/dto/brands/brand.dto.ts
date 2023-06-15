@@ -1,7 +1,7 @@
 import { Field, Float, InputType, Int } from '@nestjs/graphql';
 import { IsBoolean, IsString, isString } from 'class-validator';
 
-type BrandStatus = "ENABLED" | "DISABLED"
+type BrandStatus = 'ENABLED' | 'DISABLED';
 
 @InputType()
 export class BrandDto {

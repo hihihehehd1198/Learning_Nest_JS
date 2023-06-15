@@ -7,14 +7,14 @@ import { ERROR_RESPONSE } from 'src/shared/utils';
 
 @Injectable()
 export class CategoryService {
-  constructor(private prismaService: PrismaService) { }
+  constructor(private prismaService: PrismaService) {}
 
   async createCategory(data: Omit<CategoryDTO, 'id'>) {
     try {
       const res: Category = await this.prismaService.category.create({
         data,
       });
-      return res
+      return res;
     } catch (error) {
       ERROR_RESPONSE(error);
     }
@@ -30,7 +30,7 @@ export class CategoryService {
           ...body,
         },
       });
-      return res
+      return res;
     } catch (error) {
       ERROR_RESPONSE(error);
     }
@@ -39,10 +39,10 @@ export class CategoryService {
     try {
       return id
         ? await this.prismaService.category.findMany({
-          where: {
-            id,
-          },
-        })
+            where: {
+              id,
+            },
+          })
         : await this.prismaService.category.findMany();
     } catch (error) {
       ERROR_RESPONSE(error);
@@ -57,7 +57,7 @@ export class CategoryService {
           },
         },
       });
-      return 'ok'
+      return 'ok';
     } catch (error) {
       ERROR_RESPONSE(error);
     }

@@ -6,7 +6,7 @@ import { ERROR_RESPONSE } from 'src/shared/utils';
 
 @Injectable()
 export class ArticleService {
-  constructor(private prismaService: PrismaService) { }
+  constructor(private prismaService: PrismaService) {}
   async getArticle(id?: number) {
     try {
       if (!id) {
@@ -34,7 +34,7 @@ export class ArticleService {
           title: data.title,
         },
       });
-      return res
+      return res;
     } catch (error) {
       ERROR_RESPONSE(error);
     }
@@ -44,23 +44,22 @@ export class ArticleService {
       const res: Article = await this.prismaService.article.create({
         data,
       });
-      return res
+      return res;
     } catch (error) {
       ERROR_RESPONSE(error);
     }
   }
   async deleteArticle(listId: number[]) {
     try {
-
       //asdasd
       await this.prismaService.article.deleteMany({
         where: {
           id: {
-            in: [...listId]
-          }
+            in: [...listId],
+          },
         },
       });
-      return 'ok?'
+      return 'ok?';
     } catch (error) {
       ERROR_RESPONSE(error);
     }

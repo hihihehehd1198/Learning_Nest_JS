@@ -17,7 +17,10 @@ import { type } from 'os';
 
 @Resolver()
 export class BannerResolver {
-  constructor(private bannerService: BannerService, private awsService: AWSService) { }
+  constructor(
+    private bannerService: BannerService,
+    private awsService: AWSService,
+  ) {}
   @Query(() => [Banner])
   async getAllBanner(@Args('id', { nullable: true }) id?: number) {
     return this.bannerService.getBanner(id);
@@ -41,13 +44,14 @@ export class BannerResolver {
   }
 
   @Mutation(() => String)
-  async uploadFile(@Args('data', { type: () => FileUploadDTO }) data: FileUploadDTO) {
-    return await this.awsService.uploadFileToS3(data)
+  async uploadFile(
+    @Args('data', { type: () => FileUploadDTO }) data: FileUploadDTO,
+  ) {
+    return await this.awsService.uploadFileToS3(data);
   }
 
   @Mutation(() => String)
   async getURLS3(@Args('fileName', { type: () => String }) fileName: string) {
-    return await this.awsService.getURLS3({ fileName })
-    
+    return await this.awsService.getURLS3({ fileName });
   }
 }

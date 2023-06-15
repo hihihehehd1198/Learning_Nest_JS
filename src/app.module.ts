@@ -54,4 +54,4 @@ import { ChatGateway } from './chat/chat.gateway';
   controllers: [],
   providers: [PrismaService, ChatGateway],
 })
-export class AppModule { }
+export class AppModule {}

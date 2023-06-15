@@ -6,13 +6,13 @@ import { ERROR_RESPONSE } from 'src/shared/utils';
 
 @Injectable()
 export class ServiceShopService {
-  constructor(private prismaService: PrismaService) { }
+  constructor(private prismaService: PrismaService) {}
   async createServiceShop(data: ServiceShopDTO) {
     try {
       const res: ServiceShop = await this.prismaService.serviceShop.create({
         data,
       });
-      return res
+      return res;
     } catch (error) {
       ERROR_RESPONSE(error);
     }
@@ -37,7 +37,7 @@ export class ServiceShopService {
           ...body,
         },
       });
-      return res
+      return res;
     } catch (error) {
       ERROR_RESPONSE(error);
     }
@@ -51,7 +51,7 @@ export class ServiceShopService {
           },
         },
       });
-      return 'ok?'
+      return 'ok?';
     } catch (error) {
       ERROR_RESPONSE(error);
     }

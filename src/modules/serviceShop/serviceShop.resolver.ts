@@ -5,7 +5,7 @@ import { ServiceShopDTO } from '../../auth/dto/serviceShop/serviceShop.dto';
 
 @Resolver(() => ServiceShop)
 export class ServiceShopResolver {
-  constructor(private serviceShopService: ServiceShopService) { }
+  constructor(private serviceShopService: ServiceShopService) {}
 
   @Query(() => [ServiceShop])
   async getServiceShop(@Args('id', { nullable: true }) id: number) {
@@ -25,5 +25,4 @@ export class ServiceShopResolver {
   async createServiceShop(@Args('body') data: ServiceShopDTO) {
     return this.serviceShopService.createServiceShop(data);
   }
-
 }

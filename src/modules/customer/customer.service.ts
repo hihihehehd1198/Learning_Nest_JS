@@ -12,13 +12,13 @@ export class CustomerService {
     // private jwtService: JwtService,
     private configService: ConfigService,
     private prismaService: PrismaService,
-  ) { }
+  ) {}
 
   async createCustomerAccount(data: CustomerDto) {
     const { hashedPassword, ...body } = data;
     const Password = await argon.hash(hashedPassword);
     try {
-      const res:Customer = await this.prismaService.customer.create({
+      const res: Customer = await this.prismaService.customer.create({
         data: {
           hashedPassword: Password,
           ...body,
@@ -53,7 +53,7 @@ export class CustomerService {
           },
         },
       });
-      return 'ok?'
+      return 'ok?';
     } catch (error) {
       ERROR_RESPONSE(error);
     }
