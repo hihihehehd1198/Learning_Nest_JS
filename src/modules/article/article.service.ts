@@ -6,7 +6,7 @@ import { ERROR_RESPONSE } from 'src/shared/utils';
 
 @Injectable()
 export class ArticleService {
-  constructor(private prismaService: PrismaService) {}
+  constructor(private prismaService: PrismaService) { }
   async getArticle(id?: number) {
     try {
       if (!id) {
