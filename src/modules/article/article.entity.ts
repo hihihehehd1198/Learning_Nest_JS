@@ -1,14 +1,13 @@
-import { Field, InputType, Int, ObjectType } from '@nestjs/graphql';
-import { IsEmail, IsNumber, IsOptional, IsString } from 'class-validator';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 export class Article {
   @Field(() => Int, { nullable: true })
   id?: number;
 
-  @Field(() => String!)
-  title?: String;
+  @Field(() => String, { nullable: true })
+  title?: string | null;;
 
-  @Field(() => String!)
-  body?: String;
+  @Field(() => String, { nullable: true })
+  body?: string | null;
 }
