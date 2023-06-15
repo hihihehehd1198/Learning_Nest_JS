@@ -46,3 +46,4 @@ async function bootstrap() {
   // app.listen(4000)
 }
 bootstrap();
+// "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
