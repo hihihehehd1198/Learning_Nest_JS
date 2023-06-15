@@ -20,7 +20,7 @@ export class ArticleService {
 
       // throw new Error('cmm')
     } catch (error) {
-      ERROR_RESPONSE(error);
+      ERROR_RESPONSE(error);//test
     }
   }
   async updateArticle(data: ArticleDto) {
