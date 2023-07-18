@@ -17,3 +17,12 @@ include : select đến thông tin của record có liên quan , ví dụ class 
 ## JS 
 [An empty string (''), the number 0, null, NaN, a boolean false, and undefined variables are all “falsy”. Everything else is “truthy”.
 ](https://www.nfriedly.com/techblog/2009/07/advanced-javascript-operators-and-truthy-falsy/#:~:text=An%20empty%20string%20(%20''%20),Everything%20else%20is%20%E2%80%9Ctruthy%E2%80%9D.&text=Gotchas%20to%20watch%20out%20for,false%22%20are%20both%20considered%20truthy.)
+
+
+## git : 
+reset --hard : back commit và remove toàn bộ change </br>
+reset --soft : back commit và vẫn để lại code đã change trong phần stash commit</br>
+
+--amend -m : change lại commit message của commit trước đó </br>
+config --global alias.<custom-commit-name>  "my git commit" : tự custom git command dựa trên command của hệ thống (dạng giống npm run ) </br>
+
